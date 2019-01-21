@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Leass</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/less/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/bootstrap/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/metisMenu/metisMenu.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dist/css/sb-admin-2.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/morrisjs/morris.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/font-awesome/css/font-awesome.min.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">
+                            <img src="/leass/smallogo.png">
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li th:classappend="${module == 'home' ? 'active' : ''}">
+                                <a href="#" th:href="@{/home}">Home</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li th:classappend="${module == 'client' ? 'active' : ''}">
+                                <a href="#" th:href="@{/listclient}">Client</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li th:classappend="${module == 'tasks' ? 'active' : ''}">
+                                <a href="#" th:href="@{/listagreement}">Add user</a>
+                            </li>
+                            <li>
+                                <a href="/login" th:href="@{/login}" onclick="$('#form').submit();">
+                                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                                </a>
+                                <form style="visibility: hidden" id="form" method="post" action="#"
+                                      th:action="@{/login}"></form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="well sidebar-nav nav-inverse">
+                <ul class="nav nav-inverse nav-list">
+                    <li>
+
+                    </li>
+                </ul>
+                <ul class="nav nav-inverse nav-list">
+                    <li th:classappend="${module == 'home' ? 'active' : ''}">
+                        <a href="#" th:href="@{/login}">
+                            <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;Dash board
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-inverse nav-list">
+                    <li th:classappend="${module == 'home' ? 'active' : ''}">
+                        <a href="#" th:href="@{/login}">
+                            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;Product
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-inverse nav-list">
+                    <li th:classappend="${module == 'home' ? 'active' : ''}">
+                        <a href="#" th:href="@{/login}">
+                            <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>&nbsp;Invoice
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-inverse nav-list">
+                    <li th:classappend="${module == 'home' ? 'active' : ''}">
+                        <a href="#" th:href="@{/login}">
+                            <span class="glyphicon glyphicon-eur" aria-hidden="true"></span>&nbsp;Payment
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-inverse nav-list">
+                    <li th:classappend="${module == 'home' ? 'active' : ''}">
+                        <a href="#" th:href="@{/login}">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;My account
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="jumbotron">
+                <form th:action="@{/update}" th:object="${client}" method="post" class="form-horizontal">
+                    <h2>Registration Form</h2>
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{regon}" placeholder="regon"
+                                   class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{shortName}"
+                                   placeholder="Last Name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{surname}" placeholder="Email"
+                                   class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{forename}"
+                                   placeholder="Password" class="form-control" /> <label></label>
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

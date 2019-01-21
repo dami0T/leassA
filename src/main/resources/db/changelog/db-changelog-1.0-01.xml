@@ -1,0 +1,147 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="0" author="dt">
+        <sql><![CDATA[
+    CREATE SEQUENCE "hibernate_sequence"
+    INCREMENT 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    START 1
+    CACHE 1;
+
+          ]]></sql>
+    </changeSet>
+
+    <changeSet id="user" author="dt">
+        <createTable tableName="sys_user">
+            <column name="id" type="bigint not null"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="type" type="varchar(20)"/>
+            <column name="client_id" type="bigint"/>
+            <column name="active" type="int"/>
+        </createTable>
+        <addPrimaryKey tableName="sys_user" columnNames="id"/>
+    </changeSet>
+    <changeSet id="role" author="dt">
+        <createTable tableName="role">
+            <column name="id" type="bigint not null"/>
+            <column name="role" type="varchar(255)"/>
+        </createTable>
+        <addPrimaryKey tableName="role" columnNames="id"/>
+    </changeSet>
+    <changeSet id="user role" author="dt">
+        <createTable tableName="user_role">
+            <column name="user_id" type="bigint not null"/>
+            <column name="role_id" type="bigint not null"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="client" author="dt">
+        <createTable tableName="client">
+            <column name="id" type="bigint not null"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="short_name" type="varchar(255)"/>
+            <column name="surname" type="varchar(255)"/>
+            <column name="forename" type="varchar(255)"/>
+            <column name="tin" type="varchar(255)"/>
+            <column name="regon" type="varchar(255)"/>
+            <column name="pesel" type="varchar(255)"/>
+            <column name="post_code" type="varchar(255)"/>
+            <column name="post" type="varchar(255)"/>
+            <column name="locality" type="varchar(255)"/>
+            <column name="street" type="varchar(255)"/>
+            <column name="house" type="varchar(255)"/>
+            <column name="apartment" type="varchar(255)"/>
+            <column name="mobile_phone" type="varchar(255)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="create_date" type="timestamp without timezone"/>
+        </createTable>
+        <addPrimaryKey tableName="client" columnNames="id"/>
+    </changeSet>
+    <changeSet id="agreement" author="dt">
+        <createTable tableName="agreement">
+            <column name="id" type="bigint not null"/>
+            <column name="agreement_number" type="varchar(255)"/>
+            <column name="create_date" type="timestamp without timezone"/>
+            <column name="sign_date" type="timestamp without timezone"/>
+            <column name="dissolve_date" type="timestamp without timezone"/>
+            <column name="close_date" type="timestamp without timezone"/>
+            <column name="last_create_invoice_date" type="timestamp without timezone"/>
+            <column name="client_id" type="bigint"/>
+            <column name="liabilities" type="numeric(19,2)"/>
+            <column name="current_balance" type="numeric(19,2)"/>
+            <column name="current_balance_left" type="numeric(19,2)"/>
+            <column name="first_invoice_amount" type="numeric(19,2)"/>
+            <column name="interest" type="numeric(19,2)"/>
+            <column name="month" type="integer"/>
+        </createTable>
+        <addPrimaryKey tableName="agreement" columnNames="id"/>
+    </changeSet>
+    <changeSet id="invoice" author="dt">
+        <createTable tableName="invoice">
+            <column name="id" type="bigint not null"/>
+            <column name="agreement_id" type="bigint"/>
+            <column name="net_value" type="numeric(19,2)"/>
+            <column name="gross_value" type="numeric(19,2)"/>
+            <column name="vat_value" type="numeric(19,2)"/>
+            <column name="paid_value" type="numeric(19,2)"/>
+            <column name="final_gross_value" type="numeric(19,2)"/>
+            <column name="invoice_number" type="varchar(255)"/>
+            <column name="create_date" type="timestamp without timezone"/>
+            <column name="operation_balance" type="numeric(19,2)"/>
+            <column name="dpd" type="integer"/>
+        </createTable>
+        <addPrimaryKey tableName="invoice" columnNames="id"/>
+    </changeSet>
+    <changeSet id="payment" author="dt">
+        <createTable tableName="payment">
+            <column name="id" type="bigint not null"/>
+            <column name="transaction_description" type="varchar(255)"/>
+            <column name="agreement_id" type="bigint"/>
+            <column name="date_of_payment" type="timestamp without timezone"/>
+            <column name="accounting_date" type="timestamp without timezone"/>
+            <column name="amount" type="numeric(19,2)"/>
+            <column name="vat_value" type="numeric(19,2)"/>
+            <column name="invoice_id" type="bigint"/>
+            <column name="sender_account_number" type="varchar(255)"/>
+            <column name="operation_balance" type="numeric(19,2)"/>
+        </createTable>
+        <addPrimaryKey tableName="payment" columnNames="id"/>
+    </changeSet>
+    <changeSet id="role admin" author="dt">
+        <insert tableName="role">
+            <column name="id" valueComputed="nextval('hibernate_sequence')"/>
+            <column name="role" value="EM"/>
+        </insert>
+        <insert tableName="role">
+            <column name="id" valueComputed="nextval('hibernate_sequence')"/>
+            <column name="role" value="CL"/>
+        </insert>
+    </changeSet>
+    <changeSet id="user admin" author="dt">
+        <insert tableName="sys_user">
+            <column name="id" valueComputed="nextval('hibernate_sequence')"/>
+            <column name="email" value="admin"/>
+            <column name="name" value="admin"/>
+            <column name="type" value="EM"/>
+            <column name="active" value="1"/>
+            <column name="last_name" value="admin"/>
+            <column name="password" value="$2a$10$7VXqHp.B1OnNcwbGJJzO9ebVFjLjHDA9NsCynm.jCdjrYEMV2V0xq"/>
+        </insert>
+    </changeSet>
+    <changeSet id="roles user" author="dt">
+        <insert tableName="user_role">
+            <column name="user_id" value="3"/>
+            <column name="role_id" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet author="sequence" id="createSequence-example">
+        <createSequence sequenceName="inv_seq"
+                        startValue="100"/>
+    </changeSet>
+</databaseChangeLog>

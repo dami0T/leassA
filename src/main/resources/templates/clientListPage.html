@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Leass</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">My project</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li th:classappend="${module == 'home' ? 'active' : ''}">
+                    <a href="#" th:href="@{/login}">Home</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:classappend="${module == 'tasks' ? 'active' : ''}">
+                    <a href="#" th:href="@{/registration}">Add user</a>
+                </li>
+                <li >
+                    <a href="/login" th:href="@{/login}" onclick="$('#form').submit();">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                    </a>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/login}"></form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div>
+
+
+    <div class="container">
+            <h2>Product List</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Tin</th>
+                    <th>Email</th>
+                    <th>Show</th>
+                    <!--<th>Edit</th>-->
+                    <!--<th>Delete</th>-->
+                </tr>
+                <tr th:each="clientDto : ${clientList}">
+                    <td th:text="${clientDto.id}"></td>
+                    <td th:text="${clientDto.shortName}"></td>
+                    <td th:text="${clientDto.tin}"></td>
+                    <td th:text="${clientDto.email}"></td>
+                    <td><a th:href="${'/client/' + clientDto.id}">View</a> </td>
+                    <td><a th:href="${'/clientEdit/' + clientDto.id}">Edit</a> </td>
+                    <!--<td><a th:href="${'/product/delete/' + product.id}">Delete</a> </td>-->
+                </tr>
+            </table>
+        <div class="row">
+            <div class="col-sm-3">
+                <a href="/clientEdit">New Product</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

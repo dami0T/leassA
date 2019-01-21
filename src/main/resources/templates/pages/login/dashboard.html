@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Leass</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/less/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/bootstrap/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/metisMenu/metisMenu.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dist/css/sb-admin-2.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/morrisjs/morris.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/font-awesome/css/font-awesome.min.css}"/>
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top orange" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><img class="logo" th:src="@{/css/assets/logo.png}"/></a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <!--dodanie użytkownika-->
+            <li>
+                <a href="/registration" th:href="@{/registration}" onclick="$('#form').submit();">
+                    <i class="fa fa-user fa-fw"></i>
+                </a>
+            </li>
+            <!--/.dodanie użytkownika-->
+            <!--wylogowanie-->
+            <li>
+                <a class="logout" href="/login" th:href="@{/login}" onclick="$('#form').submit();">
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Wyloguj
+                </a>
+            </li>
+            <!--/.wylogowanie-->
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="#" th:href="@{/home}">
+                            <i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#" th:href="@{/listagreement}">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Umowy</a>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#" th:href="@{/listinvoice}">
+                            <i class="fa fa-files-o fa-fw"></i> Faktury</a>
+                    </li>
+                    <li>
+                        <a href="#" th:href="@{/listpayment}">
+                            <i class="fa fa-money fa-fw"></i> Wpłaty</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dashboard</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user-plus fa-5x" href="#" th:href="@{/listclient}"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Klienci</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" th:href="@{/addClient}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Dodaj klienta</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa  fa-pencil-square fa-5x" href="#" th:href="@{/agreementEditPage}"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Umowy</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" th:href="@{/addAgreement}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Dodaj umowę</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-money fa-5x" href="#" th:href="@{/agreementEditPage}"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div>Wpłaty</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" th:href="@{/addPayment}">
+                            <div class="panel-footer">
+                                <span class="pull-left">Dodaj wpłatę</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--<form method="POST" enctype="multipart/form-data" id="fileUploadForm" th:action="@{/upload}">-->
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label" for="uploadfile">Upload File:</label>-->
+                    <!--<input type="file" class="form-control" id="uploadfile" placeholder="Upload File"  name="uploadfile"></input>-->
+                <!--</div>-->
+                <!--<button type="submit" class="btn btn-default" id="btnSubmit">Upload</button>-->
+            <!--</form>-->
+                    <div class="panel panel-default">
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery --><script src="/js/hello.js"></script>
+<script src="/css/vendor/jquery/jquery.min.js"></script>
+<script src="/css/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/css/vendor/metisMenu/metisMenu.min.js"></script>
+<script src="/css/vendor/raphael/raphael.min.js"></script>
+<script src="/css/vendor/morrisjs/morris.min.js"></script>
+<script src="/css/webdata/morris-data.js"></script>
+<script src="css/dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
