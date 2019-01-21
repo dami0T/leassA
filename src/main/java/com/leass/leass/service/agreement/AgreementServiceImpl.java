@@ -91,8 +91,9 @@ public class AgreementServiceImpl implements AgreementService {
 
     @Override
     public AgreementDto createAgreement(AgreementDto agreementDto, String value) {
+        BigDecimal amount = agreementDto.getLiabilities().multiply(new BigDecimal(agreementDto.getMonth()));
         Agreement agreement = convertToAgreementEntity(agreementDto);
-        agreement.setLiabilities(new BigDecimal(value.replaceAll(",", "")));
+        agreement.setLiabilities(amount);
         agreement.setCurrentBalance(new BigDecimal(value.replaceAll(",", "")));
         agreement.setCurrentBalanceLeft(new BigDecimal(BigInteger.ZERO));
         agreement.setFirsInvoiceAmount(agreementDto.getFirstInvoiceAmount());

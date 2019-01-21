@@ -70,7 +70,6 @@
             <column name="product_id" type="bigint"/>
             <column name="create_date" type="timestamp without timezone"/>
             <column name="sign_date" type="timestamp without timezone"/>
-            <column name="dissolve_date" type="timestamp without timezone"/>
             <column name="close_date" type="timestamp without timezone"/>
             <column name="last_create_invoice_date" type="timestamp without timezone"/>
             <column name="client_id" type="bigint"/>
@@ -78,7 +77,7 @@
             <column name="current_balance" type="numeric(19,2)"/>
             <column name="current_balance_left" type="numeric(19,2)"/>
             <column name="first_invoice_amount" type="numeric(19,2)"/>
-            <column name="interest" type="numeric(19,2)"/>
+            <column name="amount_of_installments" type="numeric(19,2)"/>
             <column name="month" type="integer"/>
         </createTable>
         <addPrimaryKey tableName="agreement" columnNames="id"/>

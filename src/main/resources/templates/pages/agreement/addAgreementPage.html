@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="col-lg-4">
-                                        <label class="text">Procent pierwszej faktury:</label>
+                                        <label class="text">Kwota pierwszej faktury:</label>
                                     </div>
                                     <div class="col-lg-8">
                                         <input type="text" th:field="*{firstInvoiceAmount}" class="form-control add" />
@@ -141,10 +141,10 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="col-lg-4">
-                                        <label class="text">Wartość odsetek:</label>
+                                        <label class="text">Kwota rat:</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="text" th:field="*{interest}" class="form-control add" />
+                                        <input type="text" th:field="*{amountOfInstallments}" class="form-control add" />
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -167,7 +167,7 @@
                                         <label class="text">Produkt:</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <select class="form-control add" th:field="*{clientId}" name="product" id="product">
+                                        <select class="form-control add" th:field="*{productId}" name="product" id="product">
                                             <option value="0">ALL</option>
                                             <option th:each="product : ${allProducts}"
                                                     th:value="${product.id}"

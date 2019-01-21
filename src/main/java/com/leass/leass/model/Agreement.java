@@ -26,9 +26,6 @@ public class Agreement implements Serializable {
     @Column(name = "sign_date")
     private Date signDate;
 
-    @Column(name = "dissolve_date")
-    private Date dissolveDate;
-
     @Column(name = "close_date")
     private Date closeDate;
 
@@ -46,7 +43,7 @@ public class Agreement implements Serializable {
 
     private BigDecimal currentBalanceLeft;
 
-    private BigDecimal interest;
+    private BigDecimal amountOfInstallments;
 
     @Column(name = "first_invoice_amount")
     private BigDecimal firsInvoiceAmount;
@@ -99,14 +96,6 @@ public class Agreement implements Serializable {
         this.signDate = signDate;
     }
 
-    public Date getDissolveDate() {
-        return dissolveDate;
-    }
-
-    public void setDissolveDate(Date dissolveDate) {
-        this.dissolveDate = dissolveDate;
-    }
-
     public Date getCloseDate() {
         return closeDate;
     }
@@ -147,14 +136,6 @@ public class Agreement implements Serializable {
         this.currentBalanceLeft = currentBalanceLeft;
     }
 
-    public BigDecimal getInterest() {
-        return interest;
-    }
-
-    public void setInterest(BigDecimal interest) {
-        this.interest = interest;
-    }
-
     public int getMonth() {
         return month;
     }
@@ -185,5 +166,13 @@ public class Agreement implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public BigDecimal getAmountOfInstallments() {
+        return amountOfInstallments;
+    }
+
+    public void setAmountOfInstallments(BigDecimal amountOfInstallments) {
+        this.amountOfInstallments = amountOfInstallments;
     }
 }

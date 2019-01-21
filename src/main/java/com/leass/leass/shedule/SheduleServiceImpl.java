@@ -43,12 +43,10 @@ public class SheduleServiceImpl implements SheduleService{
 
         for (Agreement agreement : agreements) {
             if (plusDays(agreement.getLastCreateInvoiceDate() == null ? agreement.getCreateDate() : agreement.getLastCreateInvoiceDate() , 1).after(currentDate)) {
-                BigDecimal basic = agreement.getLiabilities().divide(new BigDecimal(agreement.getMonth()), 2, BigDecimal.ROUND_HALF_UP);
-                BigDecimal interest = basic.multiply(agreement.getInterest());
-                BigDecimal vatValue = percentFromValue(new BigDecimal("23"), basic, 2);
-                BigDecimal netValue = basic.subtract(vatValue);
+                BigDecimal amount = agreement.getAmountOfInstallments();
+                BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
+                BigDecimal netValue = amount.subtract(vatValue);
 
-                BigDecimal amount = basic.add(interest);
 
                 if (agreement.getCreateDate().after(currentDate)) ;
                 Invoice invoice = new Invoice();
@@ -64,9 +62,6 @@ public class SheduleServiceImpl implements SheduleService{
 
                 invoiceService.save(invoice);
                 agreement.setLastCreateInvoiceDate(currentDate);
-                // przenieść do wpłat
-//                agreement.setCurrentBalance(agreement.getCurrentBalance().subtract(amount));
-//                agreement.setCurrentBalanceLeft(amount);
                 agreementService.save(agreement);
             }
         }
