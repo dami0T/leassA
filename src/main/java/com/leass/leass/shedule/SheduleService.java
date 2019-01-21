@@ -1,6 +1,8 @@
 package com.leass.leass.shedule;
 
+import java.io.IOException;
+
 public interface SheduleService {
 
-    void createInvoiceMonth();
+    void createInvoiceMonth() throws IOException;
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "client")
+@Table(name = "product")
 public class Product {
 
     @Id
@@ -12,10 +12,13 @@ public class Product {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "reference_number")
     private String referenceNumber;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "rent")
     private Boolean isRent;
 
     @Column(name = "estimated_time_of_lease")

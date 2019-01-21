@@ -2,6 +2,7 @@ package com.leass.leass.web.client;
 
 import com.leass.leass.model.Agreement;
 import com.leass.leass.model.Client;
+import com.leass.leass.service.ExporterService;
 import com.leass.leass.service.UserService;
 import com.leass.leass.service.client.ClientDto;
 import com.leass.leass.service.client.ClientService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,6 +28,9 @@ public class ClientController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ExporterService exporterService;
 
 
     ArrayList wrapper ;
@@ -86,7 +91,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/addClient", method = RequestMethod.POST)
-    public ModelAndView addClient(@ModelAttribute Client client, BindingResult result) {
+    public ModelAndView addClient(@ModelAttribute Client client, BindingResult result) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
@@ -95,6 +100,7 @@ public class ClientController {
             client.setCreateDate(new Date());
             clientService.save(client);
             userService.createUser(client);
+            exporterService.createDirectory(client.getId().toString());
             modelAndView.addObject("successMessage", "Zapisono pomyślnie");
             modelAndView.setViewName("/pages/client/clientViewPage");
         }

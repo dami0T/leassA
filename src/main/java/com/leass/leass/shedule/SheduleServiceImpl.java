@@ -3,6 +3,7 @@ package com.leass.leass.shedule;
 import com.leass.leass.model.Agreement;
 import com.leass.leass.model.Invoice;
 import com.leass.leass.model.InvoiceLine;
+import com.leass.leass.service.ExporterService;
 import com.leass.leass.service.agreement.AgreementDto;
 import com.leass.leass.service.agreement.AgreementService;
 import com.leass.leass.service.invoice.InvoiceService;
@@ -17,6 +18,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.util.DateUtils;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -29,18 +33,21 @@ public class SheduleServiceImpl implements SheduleService{
     @Autowired
     InvoiceService invoiceService;
 
+    @Autowired
+    ExporterService exporterService;
+
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    @Scheduled(cron = "0 0 1 * * *")
-    public void createInvoiceMonth() {
+    @Scheduled(cron = "5 * * * * *")
+    public void createInvoiceMonth() throws IOException {
 
         Date currentDate = new Date();
         List<Agreement> agreements = agreementService.findAll();
         DateTime date = new DateTime();
-
-
+        String postName = "/home/damian/Pulpit/";
+        String fileName = "";
         for (Agreement agreement : agreements) {
             if (plusDays(agreement.getLastCreateInvoiceDate() == null ? agreement.getCreateDate() : agreement.getLastCreateInvoiceDate() , 1).after(currentDate)) {
                 BigDecimal amount = agreement.getAmountOfInstallments();
@@ -60,6 +67,10 @@ public class SheduleServiceImpl implements SheduleService{
                 invoice.setNetValue(netValue);
                 invoice.setAgreement(agreement);
 
+
+                fileName = postName+ invoice.getAgreement().getClient().getId() +"/"+ "Fa-Vat_"+ invoice.getIdentifier() +".txt";
+
+                exporterService.write(fileName, invoice);
                 invoiceService.save(invoice);
                 agreement.setLastCreateInvoiceDate(currentDate);
                 agreementService.save(agreement);

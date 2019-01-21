@@ -2,9 +2,11 @@ package com.leass.leass.service.agreement;
 
 import com.leass.leass.model.Agreement;
 import com.leass.leass.model.Client;
+import com.leass.leass.model.Product;
 import com.leass.leass.repository.AgreementRepository;
 import com.leass.leass.repository.AgreementSpecification;
 import com.leass.leass.repository.ClientRepository;
+import com.leass.leass.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,9 @@ public class AgreementServiceImpl implements AgreementService {
 
     @Autowired
     ClientRepository clientRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @Autowired
     AgreementSpecification agreementSpecification;
@@ -72,6 +77,11 @@ public class AgreementServiceImpl implements AgreementService {
         if(agreementDto.getClientId() != null) {
             Client client = clientRepository.getOne(agreementDto.getClientId());
             agreement.setClient(client);
+        }
+
+        if(agreementDto.getProductId() != null) {
+            Product product = productRepository.getOne(agreementDto.getProductId());
+            agreement.setProduct(product);
         }
 
         save(agreement);

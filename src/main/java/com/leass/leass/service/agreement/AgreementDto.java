@@ -40,6 +40,8 @@ public class AgreementDto {
 
     private BigDecimal interest;
 
+    private BigDecimal amountOfInstallments;
+
     private int month;
 
     private byte[] content;
@@ -100,6 +102,14 @@ public class AgreementDto {
         this.clientId = clientId;
     }
 
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
     public String getClientName() {
         return clientName;
     }
@@ -114,14 +124,6 @@ public class AgreementDto {
 
     public void setLiabilities(BigDecimal liabilities) {
         this.liabilities = liabilities;
-    }
-
-    public byte[] getContent() {
-        return content;
-    }
-
-    public void setContent(byte[] content) {
-        this.content = content;
     }
 
     public BigDecimal getCurrentBalance() {
@@ -140,12 +142,28 @@ public class AgreementDto {
         this.currentBalanceLeft = currentBalanceLeft;
     }
 
+    public BigDecimal getFirstInvoiceAmount() {
+        return firstInvoiceAmount;
+    }
+
+    public void setFirstInvoiceAmount(BigDecimal firstInvoiceAmount) {
+        this.firstInvoiceAmount = firstInvoiceAmount;
+    }
+
     public BigDecimal getInterest() {
         return interest;
     }
 
     public void setInterest(BigDecimal interest) {
         this.interest = interest;
+    }
+
+    public BigDecimal getAmountOfInstallments() {
+        return amountOfInstallments;
+    }
+
+    public void setAmountOfInstallments(BigDecimal amountOfInstallments) {
+        this.amountOfInstallments = amountOfInstallments;
     }
 
     public int getMonth() {
@@ -156,19 +174,11 @@ public class AgreementDto {
         this.month = month;
     }
 
-    public BigDecimal getFirstInvoiceAmount() {
-        return firstInvoiceAmount;
+    public byte[] getContent() {
+        return content;
     }
 
-    public void setFirstInvoiceAmount(BigDecimal firstInvoiceAmount) {
-        this.firstInvoiceAmount = firstInvoiceAmount;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setContent(byte[] content) {
+        this.content = content;
     }
 }
