@@ -162,6 +162,21 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label class="text">Produkt:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control add" th:field="*{clientId}" name="product" id="product">
+                                            <option value="0">ALL</option>
+                                            <option th:each="product : ${allProducts}"
+                                                    th:value="${product.id}"
+                                                    th:selected="${product.isSelected(product.id)}"
+                                                    th:text="${product.description}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <button type="submit" class="btn btn-primary btn-agreement">Zapisz</button>
                             </form>
                             <!-- /.panel-body -->

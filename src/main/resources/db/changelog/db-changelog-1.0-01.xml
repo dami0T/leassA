@@ -67,6 +67,7 @@
         <createTable tableName="agreement">
             <column name="id" type="bigint not null"/>
             <column name="agreement_number" type="varchar(255)"/>
+            <column name="product_id" type="bigint"/>
             <column name="create_date" type="timestamp without timezone"/>
             <column name="sign_date" type="timestamp without timezone"/>
             <column name="dissolve_date" type="timestamp without timezone"/>
@@ -97,6 +98,16 @@
             <column name="dpd" type="integer"/>
         </createTable>
         <addPrimaryKey tableName="invoice" columnNames="id"/>
+    </changeSet>
+    <changeSet id="product" author="dt">
+        <createTable tableName="product">
+            <column name="id" type="bigint not null"/>
+            <column name="reference_number" type="varchar(255)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="rent" type="boolean"/>
+            <column name="estimated_time_of_lease" type="timestamp without timezone"/>
+        </createTable>
+        <addPrimaryKey tableName="product" columnNames="id"/>
     </changeSet>
     <changeSet id="payment" author="dt">
         <createTable tableName="payment">

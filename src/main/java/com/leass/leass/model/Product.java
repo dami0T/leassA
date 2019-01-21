@@ -13,13 +13,20 @@ public class Product {
     private Long id;
 
     private String referenceNumber;
-    
+
     private String description;
 
     private Boolean isRent;
 
     @Column(name = "estimated_time_of_lease")
     private Date estimatedTimeOfLease;
+
+    public boolean isSelected(Long productId){
+        if (productId != null) {
+            return productId.equals(id);
+        }
+        return false;
+    }
 
     public Long getId() {
         return id;
