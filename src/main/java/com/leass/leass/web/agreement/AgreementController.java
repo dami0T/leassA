@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -103,7 +104,7 @@ public class AgreementController {
     }
 
     @RequestMapping(value = "/addAgreement", method = RequestMethod.POST)
-    public ModelAndView addAgreement(@ModelAttribute AgreementDto agreement, BindingResult result) {
+    public ModelAndView addAgreement(@ModelAttribute AgreementDto agreement, BindingResult result) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());

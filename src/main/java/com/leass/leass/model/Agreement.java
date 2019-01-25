@@ -50,6 +50,8 @@ public class Agreement implements Serializable {
 
     private int month;
 
+    private int monthLeft;
+
     @Column(name = "last_create_invoice_date")
     private Date lastCreateInvoiceDate;
 
@@ -174,5 +176,13 @@ public class Agreement implements Serializable {
 
     public void setAmountOfInstallments(BigDecimal amountOfInstallments) {
         this.amountOfInstallments = amountOfInstallments;
+    }
+
+    public int getMonthLeft() {
+        return monthLeft;
+    }
+
+    public void setMonthLeft(int monthLeft) {
+        this.monthLeft = monthLeft;
     }
 }

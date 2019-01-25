@@ -79,6 +79,7 @@
             <column name="first_invoice_amount" type="numeric(19,2)"/>
             <column name="amount_of_installments" type="numeric(19,2)"/>
             <column name="month" type="integer"/>
+            <column name="month_left" type="integer"/>
         </createTable>
         <addPrimaryKey tableName="agreement" columnNames="id"/>
     </changeSet>

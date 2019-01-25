@@ -49,7 +49,8 @@ public class SheduleServiceImpl implements SheduleService{
         String postName = "/home/damian/Pulpit/";
         String fileName = "";
         for (Agreement agreement : agreements) {
-            if (plusDays(agreement.getLastCreateInvoiceDate() == null ? agreement.getCreateDate() : agreement.getLastCreateInvoiceDate() , 1).after(currentDate)) {
+            if (plusDays(agreement.getLastCreateInvoiceDate() == null ? agreement.getCreateDate() : agreement.getLastCreateInvoiceDate() , 1).after(currentDate)
+                    && agreement.getMonthLeft() > 0) {
                 BigDecimal amount = agreement.getAmountOfInstallments();
                 BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
                 BigDecimal netValue = amount.subtract(vatValue);
@@ -73,6 +74,7 @@ public class SheduleServiceImpl implements SheduleService{
                 exporterService.write(fileName, invoice);
                 invoiceService.save(invoice);
                 agreement.setLastCreateInvoiceDate(currentDate);
+                agreement.setMonthLeft(agreement.getMonthLeft() -1);
                 agreementService.save(agreement);
             }
         }

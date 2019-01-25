@@ -108,6 +108,7 @@ public class AgreementServiceImpl implements AgreementService {
         agreement.setCurrentBalanceLeft(new BigDecimal(BigInteger.ZERO));
         agreement.setFirsInvoiceAmount(agreementDto.getFirstInvoiceAmount());
         agreement.setCreateDate(new Date());
+        agreement.setMonthLeft(agreementDto.getMonth());
         save(agreement);
         agreementDto = convertToAgreementDto(agreement);
         return agreementDto;

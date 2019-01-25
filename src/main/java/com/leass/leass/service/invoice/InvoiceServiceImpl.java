@@ -5,6 +5,7 @@ import com.leass.leass.model.Invoice;
 import com.leass.leass.repository.AgreementSpecification;
 import com.leass.leass.repository.InvoiceRepository;
 import com.leass.leass.repository.InvoiceSpecification;
+import com.leass.leass.service.ExporterService;
 import com.leass.leass.service.agreement.AgreementDto;
 import com.leass.leass.service.agreement.AgreementService;
 import org.joda.time.DateTime;
@@ -12,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +34,9 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Autowired
     AgreementService agreementService;
+
+    @Autowired
+    ExporterService exporterService;
 
 
     private InvoiceDto convertToInvoiceDto(Invoice invoice) {
@@ -91,8 +96,8 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public void generateFirstInvoice(AgreementDto agreement) {
-        BigDecimal amount = agreement.getFirstInvoiceAmount().multiply(agreement.getLiabilities());
+    public void generateFirstInvoice(AgreementDto agreement) throws IOException {
+        BigDecimal amount = agreement.getFirstInvoiceAmount();
         BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
         BigDecimal netValue = amount.subtract(vatValue);
         DateTime date = new DateTime();
@@ -106,8 +111,8 @@ public class InvoiceServiceImpl implements InvoiceService{
         invoice.setNetValue(netValue);
         invoice.setPaidValue(new BigDecimal("0.00"));
         invoice.setAgreement(agreementService.getOne(agreement.getId()));
-
         save(invoice);
+        exporterService.write("",invoice);
     }
 
     public String nextInvoiceNumber(String type, String month, String year) {

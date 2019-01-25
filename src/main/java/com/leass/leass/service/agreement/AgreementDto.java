@@ -44,6 +44,8 @@ public class AgreementDto {
 
     private int month;
 
+    private int monthLeft;
+
     private byte[] content;
 
     public Long getId() {
@@ -180,5 +182,13 @@ public class AgreementDto {
 
     public void setContent(byte[] content) {
         this.content = content;
+    }
+
+    public int getMonthLeft() {
+        return monthLeft;
+    }
+
+    public void setMonthLeft(int monthLeft) {
+        this.monthLeft = monthLeft;
     }
 }
