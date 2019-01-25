@@ -112,7 +112,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="invoice : ${invoiceList}">
-                                <td th:text="${invoice.identifier}" th:class="${invoice.grossValue == invoice.paidValue} ? 'green' : 'white')"></td>
+                                <td th:text="${invoice.identifier}"></td>
                                 <td th:text="${invoice.createDate}"></td>
                                 <td th:text="${invoice.grossValue}"></td>
                                 <td th:text="${invoice.paidValue}"></td>

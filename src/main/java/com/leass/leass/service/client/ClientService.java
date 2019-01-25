@@ -17,5 +17,5 @@ public interface ClientService {
 
     ClientDto getClientById(Long id);
 
-    void  bindingClient(ClientDto clientDto, ClientDto oldClientDto);
+    void bindingClient(ClientDto clientDto, ClientDto oldClientDto);
 }

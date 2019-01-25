@@ -1,6 +1,7 @@
 package com.leass.leass.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -12,8 +13,10 @@ public class Client {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     @Column(name = "short_name", nullable = true, length = 20)
     private String shortName;
 

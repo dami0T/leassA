@@ -1,6 +1,8 @@
 package com.leass.leass.web.product;
 
 import com.leass.leass.model.Product;
+import com.leass.leass.service.product.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,9 @@ import java.util.ArrayList;
 @Controller
 public class ProductController {
 
+    @Autowired
+    ProductService productService;
+
     @RequestMapping(value="/addProduct", method = RequestMethod.GET)
     public ModelAndView addProduct(ModelMap model){
         ModelAndView modelAndView = new ModelAndView();
@@ -24,15 +29,15 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-    public ModelAndView addProduct( BindingResult result) {
+    public ModelAndView addProduct(@ModelAttribute Product product, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
             modelAndView.setViewName("/pages/payment/addProductPage");
         } else {
-
+            productService.save(product);
             modelAndView.addObject("successMessage", "Wpłata zapisana");
-            modelAndView.setViewName("/pages/payment/addProductPage");
+            modelAndView.setViewName("/pages/product/addProductPage");
         }
         return modelAndView;
     }

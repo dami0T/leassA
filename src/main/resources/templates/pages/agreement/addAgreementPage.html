@@ -12,13 +12,12 @@
 
     <title>Leass</title>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/css/less/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/less/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/bootstrap/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/metisMenu/metisMenu.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/dist/css/sb-admin-2.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/morrisjs/morris.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/font-awesome/css/font-awesome.min.css}"/>
-
 
 
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -112,7 +111,7 @@
                                         <label class="text">Data utworzenia:</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="date" th:field="*{createDate}" class="form-control add" />
+                                        <input type="date" th:field="*{createDate}" class="form-control add"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -120,15 +119,15 @@
                                         <label class="text">Kwota pierwszej faktury:</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="text" th:field="*{firstInvoiceAmount}" class="form-control add" />
+                                        <input type="text" th:field="*{firstInvoiceAmount}" class="form-control add"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="col-lg-4">
-                                        <label class="text">Okres spłaty:</label>
+                                        <label class="text">Okres wypożyczenia:</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="text" th:field="*{month}" class="form-control add" />
+                                        <input type="text" th:field="*{month}" class="form-control add"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -136,7 +135,7 @@
                                         <label class="text">Kwota rat:</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="text" th:field="*{amountOfInstallments}" class="form-control add" />
+                                        <input type="text" th:field="*{amountOfInstallments}" class="form-control add"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -144,7 +143,8 @@
                                         <label class="text">Klient:</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <select class="form-control add" th:field="*{clientId}" name="example" id="example">
+                                        <select class="form-control add" th:field="*{clientId}" name="example"
+                                                id="example">
                                             <option value="0">ALL</option>
                                             <option th:each="client : ${allClients}"
                                                     th:value="${client.id}"
@@ -159,7 +159,8 @@
                                         <label class="text">Produkt:</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <select class="form-control add" th:field="*{productId}" name="product" id="product">
+                                        <select class="form-control add" th:field="*{productId}" name="product"
+                                                id="product">
                                             <option value="0">ALL</option>
                                             <option th:each="product : ${allProducts}"
                                                     th:value="${product.id}"

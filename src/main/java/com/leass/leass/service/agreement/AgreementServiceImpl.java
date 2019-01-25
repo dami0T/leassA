@@ -45,16 +45,16 @@ public class AgreementServiceImpl implements AgreementService {
 
     private AgreementDto convertToAgreementDto(Agreement agreement) {
         AgreementDto agreementDto = modelMapper.map(agreement, AgreementDto.class);
-        if(agreement.getClient() != null){
+        if (agreement.getClient() != null) {
             agreementDto.setClientName(agreement.getClient().getShortName());
         }
-        if(agreement.getFirsInvoiceAmount() != null){
+        if (agreement.getFirsInvoiceAmount() != null) {
             agreementDto.setFirstInvoiceAmount(agreement.getFirsInvoiceAmount());
         }
         return agreementDto;
     }
 
-    private Agreement convertToAgreementEntity(AgreementDto agreementDto){
+    private Agreement convertToAgreementEntity(AgreementDto agreementDto) {
         Agreement agreement = modelMapper.map(agreementDto, Agreement.class);
         return agreement;
     }
@@ -74,12 +74,12 @@ public class AgreementServiceImpl implements AgreementService {
     public void saveDto(AgreementDto agreementDto) {
         Agreement agreement = convertToAgreementEntity(agreementDto);
 
-        if(agreementDto.getClientId() != null) {
+        if (agreementDto.getClientId() != null) {
             Client client = clientRepository.getOne(agreementDto.getClientId());
             agreement.setClient(client);
         }
 
-        if(agreementDto.getProductId() != null) {
+        if (agreementDto.getProductId() != null) {
             Product product = productRepository.getOne(agreementDto.getProductId());
             agreement.setProduct(product);
         }
@@ -101,10 +101,10 @@ public class AgreementServiceImpl implements AgreementService {
 
     @Override
     public AgreementDto createAgreement(AgreementDto agreementDto, String value) {
-        BigDecimal amount = agreementDto.getLiabilities().multiply(new BigDecimal(agreementDto.getMonth()));
+        BigDecimal amount = new BigDecimal(value).multiply(new BigDecimal(agreementDto.getMonth()));
         Agreement agreement = convertToAgreementEntity(agreementDto);
         agreement.setLiabilities(amount);
-        agreement.setCurrentBalance(new BigDecimal(value.replaceAll(",", "")));
+        agreement.setCurrentBalance(amount);
         agreement.setCurrentBalanceLeft(new BigDecimal(BigInteger.ZERO));
         agreement.setFirsInvoiceAmount(agreementDto.getFirstInvoiceAmount());
         agreement.setCreateDate(new Date());

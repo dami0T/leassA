@@ -8,6 +8,7 @@ import com.leass.leass.service.agreement.AgreementDto;
 import com.leass.leass.service.agreement.AgreementService;
 import com.leass.leass.service.client.ClientService;
 import com.leass.leass.service.invoice.InvoiceService;
+import com.leass.leass.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,7 +39,11 @@ public class AgreementController {
     @Autowired
     InvoiceService invoiceService;
 
+    @Autowired
+    ProductService productService;
+
     ArrayList wrapper;
+    ArrayList products;
     AgreementDto agreementDto = new AgreementDto();
 
     @RequestMapping(value = "/listagreement", method = RequestMethod.GET)
@@ -91,14 +96,17 @@ public class AgreementController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/addAgreement", method = RequestMethod.GET)
-    public ModelAndView addAgreement(ModelMap model){
+    @RequestMapping(value = "/addAgreement", method = RequestMethod.GET)
+    public ModelAndView addAgreement(ModelMap model) {
         wrapper = new ArrayList<>();
+        products = new ArrayList();
         wrapper.addAll(new ArrayList<Client>(clientService.findAll()));
+        products.addAll(new ArrayList(productService.findAll()));
         ModelAndView modelAndView = new ModelAndView();
         AgreementDto agreement = new AgreementDto();
         modelAndView.addObject("agreement", agreement);
         model.addAttribute("allClients", wrapper);
+        model.addAttribute("allProducts", products);
         modelAndView.setViewName("/pages/agreement/addAgreementPage");
         return modelAndView;
     }
@@ -110,7 +118,7 @@ public class AgreementController {
             System.out.println(result.getAllErrors());
             modelAndView.setViewName("addAgreementPage");
         } else {
-            String value = agreement.getLiabilities().toString();
+            String value = agreement.getAmountOfInstallments().toString();
             AgreementDto agreement1 = agreementService.createAgreement(agreement, value);
             invoiceService.generateFirstInvoice(agreement1);
             modelAndView.addObject("agreement", agreement1);

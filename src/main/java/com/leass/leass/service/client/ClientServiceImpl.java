@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClientServiceImpl implements ClientService{
+public class ClientServiceImpl implements ClientService {
 
     @Autowired
     ClientRepository clientRepository;
@@ -50,7 +50,7 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public ClientDto getClientById(Long id){
+    public ClientDto getClientById(Long id) {
         Optional<Client> clients = clientRepository.findById(id);
         return convertToClientDto(clients.get());
     }
@@ -70,7 +70,7 @@ public class ClientServiceImpl implements ClientService{
         return clientDto;
     }
 
-    private Client convertClientToEntity(ClientDto clientDto){
+    private Client convertClientToEntity(ClientDto clientDto) {
         Client client = modelMapper.map(clientDto, Client.class);
         return client;
     }

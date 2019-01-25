@@ -2,6 +2,8 @@ package com.leass.leass.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,6 +19,8 @@ public class Agreement implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @Size(min = 2, max = 30)
     @Column(name = "agreement_number", unique = true, nullable = false)
     private String agreementNumber;
 
@@ -29,10 +33,12 @@ public class Agreement implements Serializable {
     @Column(name = "close_date")
     private Date closeDate;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "client_id")
     private Client client;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -55,11 +61,11 @@ public class Agreement implements Serializable {
     @Column(name = "last_create_invoice_date")
     private Date lastCreateInvoiceDate;
 
-    private Agreement create(){
+    private Agreement create() {
         return new Agreement();
     }
 
-    public boolean isSelected(Long agreementId){
+    public boolean isSelected(Long agreementId) {
         if (agreementId != null) {
             return agreementId.equals(id);
         }

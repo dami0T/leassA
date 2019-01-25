@@ -26,16 +26,11 @@ public class ExporterServiceImpl implements ExporterService {
     public void createDirectory(String clientId) throws IOException {
         String path = "/home/damian/Pulpit/";
         String pathName = path + clientId;
-//        File file  = new File(String.valueOf(pathName));
         File directory = new File(String.valueOf(pathName));
 
         if(!directory.exists()){
 
             directory.mkdir();
-//            if(!file.exists()){
-//                file.getParentFile().mkdir();
-//                file.createNewFile();
-//            }
         }
 
     }
