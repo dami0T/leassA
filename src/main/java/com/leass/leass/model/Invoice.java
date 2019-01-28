@@ -41,8 +41,14 @@ public class Invoice {
     @Column(name = "create_date")
     private Date createDate;                                // data utworzenia faktury
 
+    @Column(name = "paid_date")
+    private Date paidDate;                                // data utworzenia faktury
+
     @Column(name = "operation_balance")
     private BigDecimal operationBalance;                    // saldo operacyjne
+
+    @Column(name = "file_url")
+    private String fileUrl;
 
 
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sysInvoice", orphanRemoval=true)
@@ -139,5 +145,13 @@ public class Invoice {
 
     public void setAgreement(Agreement agreement) {
         this.agreement = agreement;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
     }
 }

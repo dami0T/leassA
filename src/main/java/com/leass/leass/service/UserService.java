@@ -13,4 +13,6 @@ public interface UserService {
     void createUser(Client client);
 
     User getRequiredLoggedUser();
+
+    Boolean adminRole();
 }

@@ -45,12 +45,15 @@ public class AgreementController {
     ArrayList wrapper;
     ArrayList products;
     AgreementDto agreementDto = new AgreementDto();
+    Boolean visible;
 
     @RequestMapping(value = "/listagreement", method = RequestMethod.GET)
     public ModelAndView agreementListPage() {
         ModelAndView model = new ModelAndView();
+        visible = userService.adminRole();
         wrapper = new ArrayList<>();
         wrapper.addAll(new ArrayList<Agreement>(agreementService.findAll()));
+        model.addObject("visible", visible);
         model.addObject("agreementList", wrapper);
         model.setViewName("/pages/agreement/agreementListPage");
         return model;

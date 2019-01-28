@@ -56,6 +56,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Boolean adminRole() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = findUserByEmail(auth.getName());
+
+        if(user.getRoles().get(0).getRole().contains(UserTypeEnum.EMPLOYE.getValue())) {
+          return true;
+        }
+        return false;
+    }
+
+    @Override
     public void save(User user, String role) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);

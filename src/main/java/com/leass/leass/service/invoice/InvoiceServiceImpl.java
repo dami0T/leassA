@@ -97,7 +97,9 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public void generateFirstInvoice(AgreementDto agreement) throws IOException {
-        BigDecimal amount = agreement.getFirstInvoiceAmount();
+        String postName = "/home/damian/Pulpit/";
+        String fileName = "";
+        BigDecimal amount = agreement.getAmountOfInstallments();
         BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
         BigDecimal netValue = amount.subtract(vatValue);
         DateTime date = new DateTime();
@@ -111,8 +113,11 @@ public class InvoiceServiceImpl implements InvoiceService{
         invoice.setNetValue(netValue);
         invoice.setPaidValue(new BigDecimal("0.00"));
         invoice.setAgreement(agreementService.getOne(agreement.getId()));
+        fileName = postName+ invoice.getAgreement().getClient().getId() +"/"+ "Fa-Vat_"+ invoice.getIdentifier() +".txt";
+        invoice.setFileUrl(fileName);
         save(invoice);
-        exporterService.write("",invoice);
+
+        exporterService.write(fileName,invoice);
     }
 
     public String nextInvoiceNumber(String type, String month, String year) {

@@ -6761,4 +6761,16 @@ button.close {
     display: none !important;
   }
 }
+
+.green{
+background-color: #11d62e;
+}
+
+.blue{
+background-color: #1dd1e5;
+}
+
+.red{
+background-color: #f41f1f;
+}
 /*# sourceMappingURL=bootstrap.css.map */

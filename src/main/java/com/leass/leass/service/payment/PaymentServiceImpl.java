@@ -62,7 +62,9 @@ public class PaymentServiceImpl implements PaymentService {
                 payment1.setTransactionDescription(payment.getTransactionDescription());
                 payment1.setDateOfPayment(new Date());
                 save(payment1);
-            } else {
+            } else if (invoiceValue.compareTo(baseValue) == 0){
+                toPass = baseValue;
+            }else {
                 toPass = invoiceValue.subtract(baseValue);
             }
             invoice.setOperationBalance(invoice.getOperationBalance().subtract(toPass));

@@ -36,8 +36,9 @@ public class ProductController {
             modelAndView.setViewName("/pages/payment/addProductPage");
         } else {
             productService.save(product);
-            modelAndView.addObject("successMessage", "Wpłata zapisana");
-            modelAndView.setViewName("/pages/product/addProductPage");
+            modelAndView.addObject("product", product);
+            modelAndView.addObject("successMessage", "Produkt zapisany pomyślnie");
+            modelAndView.setViewName("/pages/product/productViewPage");
         }
         return modelAndView;
     }

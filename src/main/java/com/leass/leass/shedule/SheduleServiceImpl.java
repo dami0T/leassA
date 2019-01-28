@@ -71,6 +71,7 @@ public class SheduleServiceImpl implements SheduleService{
 
                 fileName = postName+ invoice.getAgreement().getClient().getId() +"/"+ "Fa-Vat_"+ invoice.getIdentifier() +".txt";
 
+                invoice.setFileUrl(fileName);
                 exporterService.write(fileName, invoice);
                 invoiceService.save(invoice);
                 agreement.setLastCreateInvoiceDate(currentDate);

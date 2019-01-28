@@ -94,8 +94,10 @@
             <column name="final_gross_value" type="numeric(19,2)"/>
             <column name="invoice_number" type="varchar(255)"/>
             <column name="create_date" type="timestamp without timezone"/>
+            <column name="paid_date" type="timestamp without timezone"/>
             <column name="operation_balance" type="numeric(19,2)"/>
             <column name="dpd" type="integer"/>
+            <column name="file_url" type="varchar(255)"/>
         </createTable>
         <addPrimaryKey tableName="invoice" columnNames="id"/>
     </changeSet>

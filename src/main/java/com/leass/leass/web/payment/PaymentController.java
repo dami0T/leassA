@@ -3,6 +3,7 @@ package com.leass.leass.web.payment;
 import com.leass.leass.model.Agreement;
 import com.leass.leass.model.Invoice;
 import com.leass.leass.model.Payment;
+import com.leass.leass.service.UserService;
 import com.leass.leass.service.agreement.AgreementService;
 import com.leass.leass.service.invoice.InvoiceService;
 import com.leass.leass.service.payment.PaymentService;
@@ -32,14 +33,20 @@ public class PaymentController {
     @Autowired
     InvoiceService invoiceService;
 
+    @Autowired
+    UserService userService;
+
     ArrayList wrapper;
     Payment payment = new Payment();
+    Boolean visible;
 
     @RequestMapping(value = "/listpayment", method = RequestMethod.GET)
     public ModelAndView paymentListPage() {
         ModelAndView model = new ModelAndView();
         wrapper = new ArrayList<>();
         wrapper.addAll(new ArrayList<Payment>(paymentService.findAll()));
+        visible = userService.adminRole();
+        model.addObject("visible", visible);
         model.addObject("paymentList", wrapper);
         model.setViewName("/pages/payment/paymentListPage");
         return model;
