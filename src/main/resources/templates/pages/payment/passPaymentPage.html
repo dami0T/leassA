@@ -31,7 +31,6 @@
 
 <div id="wrapper">
 
-    <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -42,7 +41,6 @@
             </button>
             <a class="navbar-brand" href="index.html"><img class="logo" th:src="@{/css/assets/logo.png}"/></a>
         </div>
-        <!-- /.navbar-header -->
 
         <ul class="nav navbar-top-links navbar-right">
             <li>
@@ -50,16 +48,12 @@
                     <i class="fa fa-user fa-fw"></i>
                 </a>
             </li>
-            <!--/.dodanie użytkownika-->
-            <!--wylogowanie-->
             <li>
                 <a class="logout" href="/login" th:href="@{/login}" onclick="$('#form').submit();">
                     <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Wyloguj
                 </a>
             </li>
-            <!--/.wylogowanie-->
         </ul>
-        <!-- /.navbar-top-links -->
 
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
@@ -71,7 +65,6 @@
                     <li>
                         <a href="#" th:href="@{/listagreement}">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Umowy</a>
-                        <!-- /.nav-second-level -->
                     </li>
                     <li>
                         <a href="#" th:href="@{/listinvoice}">
@@ -91,7 +84,6 @@
             <div class="col-lg-12">
                 <h1 class="page-header">Tables</h1>
             </div>
-            <!-- /.col-lg-12 -->
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -99,7 +91,6 @@
                     <div class="panel-heading">
                         DataTables Advanced Tables
                     </div>
-                    <!-- /.panel-heading -->
                     <div class="panel-body">
                         <form autocomplete="off" action="#" th:action="@{/passPayment}"
                               th:object="${payment}" method="post" class="form-horizontal"
@@ -123,16 +114,12 @@
                             </tr>
                             </tbody>
                         </table>
-                        <!-- /.table-responsive -->
                             <button type="submit" class="btn btn-primary btn-login">Zaksięguj</button>
                             <span th:utext="${successMessage}"></span>
                         </form>
                     </div>
-                    <!-- /.panel-body -->
                 </div>
-                <!-- /.panel -->
             </div>
-            <!-- /.col-lg-12 -->
         </div>
     </div>
 </div>

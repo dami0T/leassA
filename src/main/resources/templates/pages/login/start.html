@@ -12,43 +12,41 @@
 
     <title>Leass</title>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/css/less/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/less/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/bootstrap/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/metisMenu/metisMenu.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/dist/css/sb-admin-2.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/font-awesome/css/font-awesome.min.css}"/>
 
     <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
     <script type="text/javascript">
     var balance = [[${balance}]];
     var balanceLeft = [[${balanceLeft}]];
-     // Load google charts
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
 
-// Draw the chart and set the chart values
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-  ['Task', 'Hours per Day'],
-  ['Wartość zadłużenia', balance],
-  ['Wartość wpłat', balanceLeft]
-]);
+    function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+    ['Task', 'Hours per Day'],
+    ['Wartość zadłużenia', balance],
+    ['Wartość wpłat', balanceLeft]
+    ]);
 
-  // Optional; add a title and set the width and height of the chart
-  var options = {'title':'My Average Day',
-   pieHole: 0.3,
-   legend: {position: 'bottom', textStyle: {color: '#d6d6d6', fontSize: 16}},
-   slices: {0: {color: '#ff8a25'}, 1:{color: '#d6d6d6'}}
-   };
+    var options = {'title':'My Average Day',
+    pieHole: 0.3,
+    legend: {position: 'bottom', textStyle: {color: '#d6d6d6', fontSize: 16}},
+    slices: {0: {color: '#ff8a25'}, 1:{color: '#d6d6d6'}}
+    };
 
-  // Display the chart inside the <div> element with id="piechart"
-  var chart = new google.visualization.PieChart(document.getElementById('chart-container'));
-  chart.draw(data, options);
+    var chart = new google.visualization.PieChart(document.getElementById('chart-container'));
+    chart.draw(data, options);
 }
+
     </script>
 
 
@@ -58,7 +56,6 @@ function drawChart() {
 
 <div id="wrapper">
 
-    <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -108,20 +105,16 @@ function drawChart() {
                 <div class="panel-heading">
                     Umowa
                 </div>
-                <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div id="chart-container"></div>
                 </div>
-                <!-- /.panel-body -->
             </div>
-            <!-- /.panel -->
         </div>
         <div class="col-lg-6" style="margin-top: 50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Faktury
                 </div>
-                <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover">
@@ -141,14 +134,11 @@ function drawChart() {
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.panel-body -->
             </div>
-            <!-- /.panel -->
-        </div>
         </div>
     </div>
+</div>
 
 </div>
 <th:block layout:fragment="scripts">

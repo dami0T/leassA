@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 
@@ -73,6 +74,11 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByRole(role);
         user.setRoles(new ArrayList<>(asList(userRole)));
         userRepository.save(user);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return new ArrayList<>(userRepository.findAll());
     }
 
 }

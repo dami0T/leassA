@@ -4,6 +4,8 @@ package com.leass.leass.service;
 import com.leass.leass.model.Client;
 import com.leass.leass.model.User;
 
+import java.util.List;
+
 public interface UserService {
 
     void save(User user, String role);
@@ -15,4 +17,6 @@ public interface UserService {
     User getRequiredLoggedUser();
 
     Boolean adminRole();
+
+    List<User> findAll();
 }
