@@ -50,7 +50,7 @@ public class LoginController {
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/pages/login/login");
+        modelAndView.setViewName("pages/login/login");
         return modelAndView;
     }
 
@@ -60,7 +60,7 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("/pages/login/registration");
+        modelAndView.setViewName("pages/login/registration");
         return modelAndView;
     }
 
@@ -81,7 +81,7 @@ public class LoginController {
             userService.save(user, role);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
-            modelAndView.setViewName("/pages/login/registration");
+            modelAndView.setViewName("pages/login/registration");
 
         }
         return modelAndView;
@@ -117,7 +117,7 @@ public class LoginController {
         if(user.getRoles().get(0).getRole().contains(UserTypeEnum.EMPLOYE.getValue())){
             //modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
             modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-            modelAndView.setViewName("/pages/login/dashboard");
+            modelAndView.setViewName("pages/login/dashboard");
             return modelAndView;
         }
 
@@ -147,7 +147,7 @@ public class LoginController {
         modelAndView.addObject("liabilities", liabilities);
         ModelMap modelMap = modelAndView.getModelMap();
         modelMap.addAttribute("dataPointsList", list);
-        modelAndView.setViewName("/pages/login/start");
+        modelAndView.setViewName("pages/login/start");
         return modelAndView;
     }
 
