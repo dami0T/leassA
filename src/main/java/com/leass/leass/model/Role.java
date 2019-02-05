@@ -27,6 +27,13 @@ public class Role  implements Comparable<Role>{
             return 0;
         }
     }
+
+    public boolean isSelected(Long clientId){
+        if (clientId != null) {
+            return clientId.equals(id);
+        }
+        return false;
+    }
     public String getRole() {
         return role;
     }

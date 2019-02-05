@@ -48,6 +48,9 @@ public class AgreementServiceImpl implements AgreementService {
         if (agreement.getClient() != null) {
             agreementDto.setClientName(agreement.getClient().getShortName());
         }
+        if (agreement.getProduct() != null) {
+            agreementDto.setProductId(agreement.getProduct().getId());
+        }
         if (agreement.getFirsInvoiceAmount() != null) {
             agreementDto.setFirstInvoiceAmount(agreement.getFirsInvoiceAmount());
         }
@@ -56,6 +59,9 @@ public class AgreementServiceImpl implements AgreementService {
 
     private Agreement convertToAgreementEntity(AgreementDto agreementDto) {
         Agreement agreement = modelMapper.map(agreementDto, Agreement.class);
+        if(agreementDto.getClientId() != null){
+            agreement.setProduct(productRepository.getOne(agreementDto.getProductId()));
+        }
         return agreement;
     }
 

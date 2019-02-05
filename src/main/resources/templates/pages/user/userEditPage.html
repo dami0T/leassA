@@ -93,59 +93,51 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <form th:action="@{/updateAgreement}" th:object="${agreement}" method="post" class="form-horizontal">
+                            <form th:action="@{/updateUser}" th:object="${user}" method="post" class="form-horizontal">
                                 <input type="hidden" th:field="*{id}" class="form-control">
                                 <div class="col-lg-6">
                                     <div class="col-lg-4">
-                                        <label>Name</label>
+                                        <label>Imię</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="text" th:field="*{agreementNumber}" class="form-control">
+                                        <input type="text" th:field="*{name}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="col-lg-4">
-                                        <label>Create date</label>
+                                        <label>Nazwisko</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="date" th:field="*{createDate}" class="form-control" />
+                                        <input type="text" th:field="*{lastName}" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="col-lg-4">
-                                        <label>Sing date</label>
+                                        <label>Aktywny</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="date" th:field="*{signDate}" class="form-control" />
+                                        <input type="numeric" th:field="*{active}" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="col-lg-4">
-                                        <label>Dissolve date</label>
+                                        <label>Hasło</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="date" th:field="*{dissolveDate}" class="form-control" />
+                                        <input type="text" th:field="*{password}" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="col-lg-4">
-                                        <label>Close date</label>
+                                        <label>Rola</label>
                                     </div>
                                     <div class="col-lg-8">
-                                        <input type="date" th:field="*{closeDate}" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="col-lg-4">
-                                        <label>Client</label>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <select class="form-control" th:field="*{clientId}" name="example" id="example">
+                                        <select class="form-control" th:field="*{roles.role}" name="example" id="example">
                                             <option value="0">ALL</option>
-                                            <option th:each="client : ${allClients}"
-                                                    th:value="${client.id}"
-                                                    th:selected="${client.isSelected(client.id)}"
-                                                    th:text="${client.shortName}">
+                                            <option th:each="role : ${roles}"
+                                                    th:value="${role.id}"
+                                                    th:selected="${role.isSelected(role.id)}"
+                                                    th:text="${role.role}">
                                             </option>
                                         </select>
                                     </div>

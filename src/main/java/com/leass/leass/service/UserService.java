@@ -10,6 +10,8 @@ public interface UserService {
 
     void save(User user, String role);
 
+    void save(User user);
+
     public User findUserByEmail(String email);
 
     void createUser(Client client);
@@ -19,4 +21,6 @@ public interface UserService {
     Boolean adminRole();
 
     List<User> findAll();
+
+    User findById(Long id);
 }

@@ -2,8 +2,8 @@ package com.leass.leass.model.enums;
 
 public enum UserTypeEnum {
 
-    EMPLOYE ("EM"),
-    CLIENT ("CL");
+    EMPLOYE ("ADMINISTRATOR"),
+    CLIENT ("UZYTKOWNIK");
 
     private String value;
 

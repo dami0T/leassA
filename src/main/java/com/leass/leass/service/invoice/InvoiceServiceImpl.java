@@ -113,7 +113,7 @@ public class InvoiceServiceImpl implements InvoiceService{
         invoice.setNetValue(netValue);
         invoice.setPaidValue(new BigDecimal("0.00"));
         invoice.setAgreement(agreementService.getOne(agreement.getId()));
-        fileName = postName+ invoice.getAgreement().getClient().getId() +"/"+ "Fa-Vat_"+ invoice.getIdentifier() +".txt";
+        fileName = postName+ invoice.getAgreement().getClient().getId() +"/"+ "Fa-Vat_"+ invoice.getIdentifier() +".docx";
         invoice.setFileUrl(fileName);
         save(invoice);
 

@@ -129,11 +129,11 @@
     <changeSet id="role admin" author="dt">
         <insert tableName="role">
             <column name="id" valueComputed="nextval('hibernate_sequence')"/>
-            <column name="role" value="EM"/>
+            <column name="role" value="ADMINISTRATOR"/>
         </insert>
         <insert tableName="role">
             <column name="id" valueComputed="nextval('hibernate_sequence')"/>
-            <column name="role" value="CL"/>
+            <column name="role" value="UZYTKOWNIK"/>
         </insert>
     </changeSet>
     <changeSet id="user admin" author="dt">

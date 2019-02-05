@@ -87,44 +87,20 @@
                     <div class="panel-heading">
                         Lista umów
                     </div>
-                    <div class="panel-body" th:if="${!visible}">
+                    <div class="panel-body">
                         <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                             <tr>
-                                <th>Numer umowy</th>
-                                <!--<th>Data utworzenia</th>-->
-                                <!--<th>Klient</th>-->
-                                <!--<th>Podgląd</th>-->
+                                <th>Nazwa</th>
+                                <th>Nazwisko</th>
+                                <th>Edytuj</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="user : ${userList}">
                                 <td th:text="${user.name}"></td>
-                                <!--<td th:text="${agreement.createDate}"></td>-->
-                                <!--<td th:text="${agreement.client.shortName}"></td>-->
-                                <!--<td><a th:href="${'/agreement/' + agreement.id}">View</a> </td>-->
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="panel-body" th:if="${visible}">
-                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                            <tr>
-                                <th>Numer umowy</th>
-                                <th>Data utworzenia</th>
-                                <th>Klient</th>
-                                <th>Podgląd</th>
-                                <th>Edytuj</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="agreement : ${agreementList}">
-                                <td th:text="${agreement.agreementNumber}"></td>
-                                <td th:text="${agreement.createDate}"></td>
-                                <td th:text="${agreement.client.shortName}"></td>
-                                <td><a th:href="${'/agreement/' + agreement.id}">View</a> </td>
-                                <td><a th:href="${'/agreementEdit/' + agreement.id}">Edit</a> </td>
+                                <td th:text="${user.lastName}"></td>
+                                <td><a th:href="${'/userEdit/' + user.id}">Edytuj</a> </td>
                             </tr>
                             </tbody>
                         </table>

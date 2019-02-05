@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:visibility="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -20,7 +20,6 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/vendor/font-awesome/css/font-awesome.min.css}"/>
 
 
-
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
@@ -31,6 +30,7 @@
 
 <div id="wrapper">
 
+    <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -39,8 +39,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Leass</a>
+            <a class="navbar-brand" href="index.html"><img class="logo" th:src="@{/css/assets/logo.png}"/></a>
         </div>
+        <!-- /.navbar-header -->
 
         <ul class="nav navbar-top-links navbar-right">
             <li>
@@ -48,12 +49,16 @@
                     <i class="fa fa-user fa-fw"></i>
                 </a>
             </li>
+            <!--/.dodanie użytkownika-->
+            <!--wylogowanie-->
             <li>
-                <a href="/login" th:href="@{/login}" onclick="$('#form').submit();">
+                <a class="logout" href="/login" th:href="@{/login}" onclick="$('#form').submit();">
                     <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Wyloguj
                 </a>
             </li>
+            <!--/.wylogowanie-->
         </ul>
+        <!-- /.navbar-top-links -->
 
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
@@ -65,6 +70,7 @@
                     <li>
                         <a href="#" th:href="@{/listagreement}">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Umowy</a>
+                        <!-- /.nav-second-level -->
                     </li>
                     <li>
                         <a href="#" th:href="@{/listinvoice}">
@@ -82,61 +88,32 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Dane umowy</h1>
+                <h1 class="page-header">Dane użytkownika</h1>
             </div>
+            <!-- /.col-lg-12 -->
         </div>
+        <!-- /.row -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Basic data
+                        Dane podstawowe
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <form th:action="@{/updateAgreement}" th:object="${agreement}" method="post" class="form-horizontal">
-                                <input type="hidden" th:field="*{id}" class="form-control">
-                                <div class="col-lg-6">
-                                    <div class="col-lg-4">
-                                        <label>Numer umowy</label>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <input type="text" th:field="*{agreementNumber}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="col-lg-4">
-                                        <label>Data utworzenia</label>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <input type="date" th:field="*{createDate}" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="col-lg-4">
-                                        <label>Data zamknięcia</label>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <input type="date" th:field="*{closeDate}" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="col-lg-4">
-                                        <label>Klient</label>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <select class="form-control" th:field="*{clientId}" name="example" id="example">
-                                            <option value="0">ALL</option>
-                                            <option th:each="client : ${allClients}"
-                                                    th:value="${client.id}"
-                                                    th:selected="${client.isSelected(client.id)}"
-                                                    th:text="${client.shortName}">
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Save change</button>
-                                <span th:utext="${successMessage}"></span>
-                            </form>
+                            <div class="col-lg-6">
+                                <label type="text" th:text="${user.name}"
+                                       class="form-control" />
+                                <!-- /.row (nested) -->
+                            </div>
+                            <div class="col-lg-6">
+                                <label type="text" th:text="${user.lastName}"
+                                       class="form-control" />
+                            </div>
+                            <a href="/listuser" class="btn btn-primary btn-agreement"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Powrót do listy</a>
+                           <div>
+                               <span th:utext="${successMessage}"></span>
+                           </div>
                         </div>
                     </div>
                 </div>
