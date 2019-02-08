@@ -50,7 +50,7 @@ public class AgreementController {
     @RequestMapping(value = "/listagreement", method = RequestMethod.GET)
     public ModelAndView agreementListPage() {
         ModelAndView model = new ModelAndView();
-        visible = userService.adminRole();
+        visible =  userService.adminRole();
         wrapper = new ArrayList<>();
         wrapper.addAll(new ArrayList<Agreement>(agreementService.findAll()));
         model.addObject("visible", visible);
@@ -62,14 +62,17 @@ public class AgreementController {
     @RequestMapping(value = "/agreement/{id}", method = RequestMethod.GET)
     public ModelAndView agreementPage(@PathVariable("id") Long id) {
         ModelAndView model = new ModelAndView();
+        visible =  userService.adminRole();
         AgreementDto agreementDto = agreementService.getAgreementById(id.longValue());
         model.addObject("agreement", agreementDto);
+        model.addObject("visible", visible);
         model.setViewName("/pages/agreement/agreementViewPage");
         return model;
     }
 
     @RequestMapping(value = {"/agreementEdit", "/agreementEdit/{id}"}, method = RequestMethod.GET)
     public String editAgreement(@PathVariable(required = false, name = "id") Long id, ModelMap model) {
+        visible =  userService.adminRole();
         if (id != null) {
             agreementDto = agreementService.getAgreementById(id);
         }
@@ -77,6 +80,7 @@ public class AgreementController {
         wrapper.addAll(new ArrayList<Client>(clientService.findAll()));
         model.addAttribute("agreement", agreementDto);
         model.addAttribute("allClients", wrapper);
+        model.addAttribute("visible", visible);
         return "/pages/agreement/agreementEditPage";
 
     }
@@ -85,6 +89,7 @@ public class AgreementController {
     @RequestMapping(value = "/updateAgreement", method = RequestMethod.POST)
     public ModelAndView saveAgreement(@ModelAttribute AgreementDto agreement, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
+        visible =  userService.adminRole();
 
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
@@ -101,6 +106,7 @@ public class AgreementController {
 
     @RequestMapping(value = "/addAgreement", method = RequestMethod.GET)
     public ModelAndView addAgreement(ModelMap model) {
+        visible =  userService.adminRole();
         wrapper = new ArrayList<>();
         products = new ArrayList();
         wrapper.addAll(new ArrayList<Client>(clientService.findAll()));
@@ -117,6 +123,7 @@ public class AgreementController {
     @RequestMapping(value = "/addAgreement", method = RequestMethod.POST)
     public ModelAndView addAgreement(@ModelAttribute AgreementDto agreement, BindingResult result) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
+        visible =  userService.adminRole();
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
             modelAndView.setViewName("addAgreementPage");

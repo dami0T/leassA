@@ -56,7 +56,7 @@
                 <ul class="nav" id="side-menu">
                     <li>
                         <a href="#" th:href="@{/home}">
-                            <i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <i class="fa fa-dashboard fa-fw"></i> Strona główna</a>
                     </li>
                     <li>
                         <a href="#" th:href="@{/listagreement}">
@@ -69,6 +69,10 @@
                     <li>
                         <a href="#" th:href="@{/listpayment}">
                             <i class="fa fa-money fa-fw"></i> Wpłaty</a>
+                    </li>
+                    <li th:if="${visible}">
+                        <a href="#" th:href="@{/listuser}">
+                            <i class="fa fa-user fa-fw"></i> Użytkownicy</a>
                     </li>
                 </ul>
             </div>

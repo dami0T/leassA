@@ -54,12 +54,14 @@ public class PaymentController {
 
     @RequestMapping(value="/addPayment", method = RequestMethod.GET)
     public ModelAndView addPayment(ModelMap model){
+        visible = userService.adminRole();
         wrapper = new ArrayList<>();
         wrapper.addAll(new ArrayList<Agreement>(agreementService.findAll()));
         ModelAndView modelAndView = new ModelAndView();
         Payment payment = new Payment();
         modelAndView.addObject("payment", payment);
         model.addAttribute("allAgreement", wrapper);
+        model.addAttribute("visible", visible);
         modelAndView.setViewName("/pages/payment/addPaymentPage");
         return modelAndView;
     }
@@ -67,6 +69,8 @@ public class PaymentController {
     @RequestMapping(value = "/addPayment", method = RequestMethod.POST)
     public ModelAndView addPayment(@ModelAttribute Payment payment, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
+        visible = userService.adminRole();
+
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
             modelAndView.setViewName("/pages/payment/addPaymentPage");
@@ -74,6 +78,7 @@ public class PaymentController {
 
             paymentService.save(payment);
             modelAndView.addObject("successMessage", "Wpłata zapisana");
+            modelAndView.addObject("visible", visible);
             modelAndView.setViewName("/pages/payment/addPaymentPage");
         }
         return modelAndView;
@@ -82,6 +87,7 @@ public class PaymentController {
     @RequestMapping(value = "/passPayment", method = RequestMethod.POST)
     public ModelAndView passPayment(@RequestParam(required=false) Long id, ServletWebRequest request) {
         ModelAndView modelAndView = new ModelAndView();
+        visible = userService.adminRole();
         Payment payment = paymentService.load(id);
         List<Long> invoiceIds = new ArrayList<>();
 
@@ -93,6 +99,7 @@ public class PaymentController {
         }
             paymentService.passPayment(payment, invoiceIds);
             modelAndView.addObject("successMessage", "Agreement save");
+            modelAndView.addObject("visible", visible);
             modelAndView.setViewName("/pages/payment/passPaymentPage");
             modelAndView.addObject("payment", payment);
 
@@ -101,6 +108,7 @@ public class PaymentController {
 
     @RequestMapping(value = {"/passPayment", "/passPayment/{id}"}, method = RequestMethod.GET)
     public String editPayment(@PathVariable(required = false, name = "id") Long id, ModelMap model) {
+        visible = userService.adminRole();
         if (id != null) {
             payment = paymentService.load(id);
         }
@@ -109,6 +117,7 @@ public class PaymentController {
 //        model.addAttribute("agreement", agreementDto);
         model.addAttribute("invoiceList", wrapper);
         model.addAttribute("payment", payment);
+        model.addAttribute("visible", visible);
         return "/pages/payment/passPaymentPage";
 
     }

@@ -1,6 +1,7 @@
 package com.leass.leass.web.invoice;
 
 import com.leass.leass.model.Invoice;
+import com.leass.leass.service.UserService;
 import com.leass.leass.service.invoice.InvoiceService;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +29,21 @@ public class InvoiceController {
     @Autowired
     InvoiceService invoiceService;
 
+    @Autowired
+    UserService userService;
+
     ArrayList wrapper ;
+    Boolean visible;
 
 
     @RequestMapping(value = "/listinvoice", method = RequestMethod.GET)
     public ModelAndView invoiceListPage() {
         ModelAndView model = new ModelAndView();
+        visible =  userService.adminRole();
         wrapper = new ArrayList<>();
         wrapper.addAll(new ArrayList<Invoice>(invoiceService.findAll()));
         model.addObject("invoiceList", wrapper);
+        model.addObject("visible", visible);
         model.setViewName("/pages/invoice/invoiceListPage");
         return model;
     }

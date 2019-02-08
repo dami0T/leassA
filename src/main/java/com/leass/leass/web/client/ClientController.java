@@ -35,32 +35,39 @@ public class ClientController {
 
     ArrayList wrapper ;
     ClientDto clientDto = new ClientDto();
+    Boolean visible;
 
     @RequestMapping(value = "/listclient", method = RequestMethod.GET)
     public ModelAndView clientListPage() {
+        visible =  userService.adminRole();
         ModelAndView model = new ModelAndView();
         wrapper = new ArrayList<>();
         wrapper.addAll(new ArrayList<Client>(clientService.findAll()));
         model.addObject("clientList", wrapper);
+        model.addObject("visible", visible);
         model.setViewName("pages/client/clientListPage");
         return model;
     }
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET)
     public ModelAndView clientPage(@PathVariable("id") Long id) {
+        visible =  userService.adminRole();
         ModelAndView model = new ModelAndView();
         ClientDto clientDto = clientService.getClientById(id.longValue());
         model.addObject("client", clientDto);
+        model.addObject("visible", visible);
         model.setViewName("pages/client/clientViewPage");
         return model;
     }
 
     @RequestMapping(value = {"/clientEdit" , "/clientEdit/{id}"}, method = RequestMethod.GET)
     public String editClient(@PathVariable(required = false, name = "id") Long id, ModelMap model) {
+        visible =  userService.adminRole();
         if(id != null) {
             clientDto = clientService.getClientById(id);
         }
         model.addAttribute("client", clientDto);
+        model.addAttribute("visible", visible);
         return "pages/client/clientEditPage";
 
     }
@@ -69,6 +76,7 @@ public class ClientController {
     @RequestMapping(value="/updateClient",method=RequestMethod.POST)
     public ModelAndView saveClient(@ModelAttribute ClientDto client, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
+        visible =  userService.adminRole();
         if (result.hasErrors()) {
             modelAndView.setViewName("registration");
         }else {
@@ -76,6 +84,7 @@ public class ClientController {
             clientService.saveDto(client);
             modelAndView.addObject("successMessage", "Client save");
             modelAndView.addObject("client", client);
+            modelAndView.addObject("visible", visible);
             modelAndView.setViewName("pages/client/clientViewPage");
         }
         return modelAndView;
@@ -83,16 +92,19 @@ public class ClientController {
 
     @RequestMapping(value="/addClient", method = RequestMethod.GET)
     public ModelAndView addClient(){
+        visible =  userService.adminRole();
         ModelAndView modelAndView = new ModelAndView();
         Client client = new Client();
         modelAndView.addObject("client", client);
         modelAndView.setViewName("pages/client/addClientPage");
+        modelAndView.addObject("visible", visible);
         return modelAndView;
     }
 
     @RequestMapping(value = "/addClient", method = RequestMethod.POST)
     public ModelAndView addClient(@ModelAttribute Client client, BindingResult result) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
+        visible =  userService.adminRole();
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
             modelAndView.setViewName("pages/client/addClientPage");
@@ -101,6 +113,7 @@ public class ClientController {
             clientService.save(client);
             userService.createUser(client);
             exporterService.createDirectory(client.getId().toString());
+            modelAndView.addObject("visible", visible);
             modelAndView.addObject("successMessage", "Zapisono pomyślnie");
             modelAndView.setViewName("pages/client/clientViewPage");
         }
