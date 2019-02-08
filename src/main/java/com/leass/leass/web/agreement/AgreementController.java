@@ -104,7 +104,7 @@ public class AgreementController {
         wrapper = new ArrayList<>();
         products = new ArrayList();
         wrapper.addAll(new ArrayList<Client>(clientService.findAll()));
-        products.addAll(new ArrayList(productService.findAll()));
+        products.addAll(new ArrayList(productService.findByRent(true)));
         ModelAndView modelAndView = new ModelAndView();
         AgreementDto agreement = new AgreementDto();
         modelAndView.addObject("agreement", agreement);

@@ -42,7 +42,7 @@ public class ClientController {
         wrapper = new ArrayList<>();
         wrapper.addAll(new ArrayList<Client>(clientService.findAll()));
         model.addObject("clientList", wrapper);
-        model.setViewName("/pages/client/clientListPage");
+        model.setViewName("pages/client/clientListPage");
         return model;
     }
 
@@ -51,7 +51,7 @@ public class ClientController {
         ModelAndView model = new ModelAndView();
         ClientDto clientDto = clientService.getClientById(id.longValue());
         model.addObject("client", clientDto);
-        model.setViewName("/pages/client/clientViewPage");
+        model.setViewName("pages/client/clientViewPage");
         return model;
     }
 
@@ -61,7 +61,7 @@ public class ClientController {
             clientDto = clientService.getClientById(id);
         }
         model.addAttribute("client", clientDto);
-        return "/pages/client/clientEditPage";
+        return "pages/client/clientEditPage";
 
     }
 
@@ -76,7 +76,7 @@ public class ClientController {
             clientService.saveDto(client);
             modelAndView.addObject("successMessage", "Client save");
             modelAndView.addObject("client", client);
-            modelAndView.setViewName("/pages/client/clientViewPage");
+            modelAndView.setViewName("pages/client/clientViewPage");
         }
         return modelAndView;
     }
@@ -86,7 +86,7 @@ public class ClientController {
         ModelAndView modelAndView = new ModelAndView();
         Client client = new Client();
         modelAndView.addObject("client", client);
-        modelAndView.setViewName("/pages/client/addClientPage");
+        modelAndView.setViewName("pages/client/addClientPage");
         return modelAndView;
     }
 
@@ -95,14 +95,14 @@ public class ClientController {
         ModelAndView modelAndView = new ModelAndView();
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
-            modelAndView.setViewName("/pages/client/addClientPage");
+            modelAndView.setViewName("pages/client/addClientPage");
         } else {
             client.setCreateDate(new Date());
             clientService.save(client);
             userService.createUser(client);
             exporterService.createDirectory(client.getId().toString());
             modelAndView.addObject("successMessage", "Zapisono pomyślnie");
-            modelAndView.setViewName("/pages/client/clientViewPage");
+            modelAndView.setViewName("pages/client/clientViewPage");
         }
         return modelAndView;
     }

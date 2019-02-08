@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.xwpf.usermodel.*;
 import org.apache.xmlbeans.XmlCursor;
 import org.joda.time.DateTime;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTHMerge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +23,6 @@ public class ExporterServiceImpl implements ExporterService {
     ClientRepository clientRepository;
     @Override
     public void write(String fileName, Invoice invoice) throws IOException {
-//        StringBuffer str = generateInvoiceString(invoice);
-////        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-////        writer.append(' ');
-////        writer.append(str);
-////
-////        writer.close();
 
         XWPFDocument document = new XWPFDocument();
         XWPFParagraph tmpParagraph = document.createParagraph();
@@ -35,6 +30,7 @@ public class ExporterServiceImpl implements ExporterService {
         tmpRun = generateInvoiceString(invoice, tmpRun);
         tmpRun.setFontSize(12);
         XWPFTable table = generateInvoiceTable(invoice, document);
+        XWPFTable table1 = generateInvoiceTable2(invoice, document);
         XWPFRun tmpRun2 = tmpParagraph.createRun();
         tmpRun = generateInvoice(invoice, tmpRun2);
         tmpRun.setFontSize(12);
@@ -80,6 +76,7 @@ public class ExporterServiceImpl implements ExporterService {
         StringBuffer str = new StringBuffer();
         tmpRun.setBold(true);
         tmpRun.setText(str.append("                         Fa-Vat").append(" ").append(invoice.getIdentifier()).toString());
+        tmpRun.addCarriageReturn();
         str.append("\n\n").append("         ").append("Kwota netto: ").append(invoice.getNetValue()).append("   ").append("Kwota Vat: ").append(invoice.getVatValue());
         str.append("\n          ").append("Kwota Brutto: ").append(invoice.getGrossValue());
         return tmpRun;
@@ -87,46 +84,49 @@ public class ExporterServiceImpl implements ExporterService {
 
     public XWPFRun generateDate(XWPFRun tmpRun){
         tmpRun.setBold(true);
-        tmpRun.setText("                         Data wystawienia: "+ new Date());
+        tmpRun.setText("                 Data wystawienia: "+ new Date());
         tmpRun.addCarriageReturn();
-        tmpRun.setText("                         Termin płatności: "+ plusDays(new Date(), 15));
+        tmpRun.setText("                 Termin płatności: "+ plusDays(new Date(), 15));
         tmpRun.addCarriageReturn();
         tmpRun.addCarriageReturn();
         return tmpRun;
     }
 
     public XWPFTable generateInvoiceTable(Invoice invoice, XWPFDocument document){
-//        StringBuffer str = new StringBuffer();
-//        tmpRun.setBold(true);
-//        tmpRun.setText(str.append("                         Fa-Vat").append(" ").append(invoice.getIdentifier()).toString());
-//        str.append("\n\n").append("         ").append("Kwota netto: ").append(invoice.getNetValue()).append("   ").append("Kwota Vat: ").append(invoice.getVatValue());
-//        str.append("\n          ").append("Kwota Brutto: ").append(invoice.getGrossValue());
-//        return tmpRun;
+
         XWPFTable table = document.createTable();
 
         //create first row
         XWPFTableRow tableRowOne = table.getRow(0);
         tableRowOne.getCell(0).setText("Nazwa usługi");
-        tableRowOne.addNewTableCell().setText("col two, row one");
+        tableRowOne.addNewTableCell().setText("Stawka Vat");
+        tableRowOne.addNewTableCell().setText("Wartość netto");
+        tableRowOne.addNewTableCell().setText("Wartość Vat");
+        tableRowOne.addNewTableCell().setText("Wartość Brutto");
 
 
         //create second row
         XWPFTableRow tableRowTwo = table.createRow();
-        tableRowTwo.getCell(0).setText("Stawka Vat");
+        tableRowTwo.getCell(0).setText("");
         tableRowTwo.getCell(1).setText("23");
+        tableRowTwo.getCell(2).setText(invoice.getNetValue().toString());
+        tableRowTwo.getCell(3).setText(invoice.getVatValue().toString());
+        tableRowTwo.getCell(4).setText(invoice.getGrossValue().toString());
 
-        //create third row
-        XWPFTableRow tableRowThree = table.createRow();
-        tableRowThree.getCell(0).setText("Wartość netto");
-        tableRowThree.getCell(1).setText("col three, row three");
 
-        XWPFTableRow tableRowFour = table.createRow();
-        tableRowFour.getCell(0).setText("Wartość Vat");
-        tableRowFour.getCell(1).setText("col three, row three");
+        return table;
+    }
+    public XWPFTable generateInvoiceTable2(Invoice invoice, XWPFDocument document){
 
-        XWPFTableRow tableRowFive = table.createRow();
-        tableRowFive.getCell(0).setText("Wartość Brutto");
-        tableRowFive.getCell(1).setText("col three, row three");
+        XWPFTable table = document.createTable();
+
+        //create first row
+        XWPFTableRow tableRowOne = table.getRow(0);
+        tableRowOne.getCell(0).setText("");
+        tableRowOne.addNewTableCell().setText("Razem");
+        tableRowOne.addNewTableCell().setText(invoice.getNetValue().toString());
+        tableRowOne.addNewTableCell().setText(invoice.getVatValue().toString());
+        tableRowOne.addNewTableCell().setText(invoice.getGrossValue().toString());
 
         return table;
     }

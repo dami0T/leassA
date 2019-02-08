@@ -3,9 +3,12 @@ package com.leass.leass.service.payment;
 import com.leass.leass.model.Agreement;
 import com.leass.leass.model.Invoice;
 import com.leass.leass.model.Payment;
+import com.leass.leass.model.Product;
 import com.leass.leass.repository.PaymentRepository;
+import com.leass.leass.repository.ProductSpecification;
 import com.leass.leass.service.agreement.AgreementService;
 import com.leass.leass.service.invoice.InvoiceService;
+import com.leass.leass.service.product.ProductCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

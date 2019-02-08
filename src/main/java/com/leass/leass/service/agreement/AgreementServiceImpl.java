@@ -116,6 +116,9 @@ public class AgreementServiceImpl implements AgreementService {
         agreement.setCreateDate(new Date());
         agreement.setMonthLeft(agreementDto.getMonth());
         save(agreement);
+        Product product = productRepository.getOne(agreementDto.getProductId());
+        product.setRent(true);
+        productRepository.save(product);
         agreementDto = convertToAgreementDto(agreement);
         return agreementDto;
     }

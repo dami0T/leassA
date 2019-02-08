@@ -2,6 +2,7 @@ package com.leass.leass;
 
 import com.leass.leass.repository.AgreementSpecification;
 import com.leass.leass.repository.InvoiceSpecification;
+import com.leass.leass.repository.ProductSpecification;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,4 +28,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public InvoiceSpecification invoiceSpecification(){return new InvoiceSpecification();}
+
+    @Bean
+    public ProductSpecification productSpecification(){return new ProductSpecification();}
 }
