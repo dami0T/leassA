@@ -73,7 +73,7 @@
                         <a href="#" th:href="@{/listpayment}">
                             <i class="fa fa-money fa-fw"></i> Wpłaty</a>
                     </li>
-                    <li th:if="${!visible}">
+                    <li th:if="${visible}">
                         <a href="#" th:href="@{/listuser}">
                             <i class="fa fa-user fa-fw"></i> Użytkownicy</a>
                     </li>
@@ -136,7 +136,7 @@
                     </div>
                 </div>
             </div>
-            <span th:utext="${successMessage}"></span>
+            <span class="green-text" th:utext="${successMessage}"></span>
         </div>
     </div>
 </div>

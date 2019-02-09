@@ -46,7 +46,7 @@ public class SheduleServiceImpl implements SheduleService{
         Date currentDate = new Date();
         List<Agreement> agreements = agreementService.findAll();
         DateTime date = new DateTime();
-        String postName = "/home/damian/Pulpit/";
+        String postName = "/documents";
         String fileName = "";
         for (Agreement agreement : agreements) {
             if (plusDays(agreement.getLastCreateInvoiceDate() == null ? agreement.getCreateDate() : agreement.getLastCreateInvoiceDate() , 1).after(currentDate)

@@ -103,7 +103,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="payment : ${paymentList}">
-                                <td th:class="green" th:text="${payment.agreement.agreementNumber}"></td>
+                                <td th:class="${payment.amount le payment.passAmount} ? 'blue' : green" th:text="${payment.agreement.agreementNumber}"></td>
                                 <td th:text="${payment.dateOfPayment}"></td>
                                 <td th:text="${payment.amount}"></td>
                             </tr>
@@ -122,7 +122,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="payment : ${paymentList}">
-                                <td th:class="${payment.amount gt 0} ? 'blue' : green" th:text="${payment.agreement.agreementNumber}"></td>
+                                <td th:class="${payment.amount le payment.passAmount} ? 'blue' : green" th:text="${payment.agreement.agreementNumber}"></td>
                                 <td th:text="${payment.dateOfPayment}"></td>
                                 <td th:text="${payment.amount}"></td>
                                 <td><a th:href="${'/passPayment/' + payment.id}">Zaksięguj</a> </td>

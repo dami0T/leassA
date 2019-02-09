@@ -105,8 +105,10 @@ public class ClientController {
     public ModelAndView addClient(@ModelAttribute Client client, BindingResult result) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         visible =  userService.adminRole();
-        if (result.hasErrors()) {
+        if (result.hasErrors() || client.getName() == null || client.getShortName() == null) {
             System.out.println(result.getAllErrors());
+            modelAndView.addObject("errorMessage", "Niepoprawnie uzupełnione dane");
+            modelAndView.addObject("client", client);
             modelAndView.setViewName("pages/client/addClientPage");
         } else {
             client.setCreateDate(new Date());

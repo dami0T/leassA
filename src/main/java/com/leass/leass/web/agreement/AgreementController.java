@@ -1,5 +1,6 @@
 package com.leass.leass.web.agreement;
 
+import antlr.StringUtils;
 import com.leass.leass.model.Agreement;
 import com.leass.leass.model.Client;
 import com.leass.leass.model.User;
@@ -124,9 +125,11 @@ public class AgreementController {
     public ModelAndView addAgreement(@ModelAttribute AgreementDto agreement, BindingResult result) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         visible =  userService.adminRole();
-        if (result.hasErrors()) {
+        if (result.hasErrors() || agreement.getAmountOfInstallments() == null) {
             System.out.println(result.getAllErrors());
-            modelAndView.setViewName("addAgreementPage");
+            modelAndView.addObject("errorMessage", "Niepoprawnie uzupełnione dane");
+            modelAndView.addObject("agreement", agreement);
+            modelAndView.setViewName("pages/agreement/addAgreementPage");
         } else {
             String value = agreement.getAmountOfInstallments().toString();
             AgreementDto agreement1 = agreementService.createAgreement(agreement, value);

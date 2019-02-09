@@ -115,8 +115,6 @@ public class LoginController {
         wrapper = new ArrayList<>();
 
         if(user.getRoles().get(0).getRole().contains(UserTypeEnum.EMPLOYE.getValue())){
-            //modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-            modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
             modelAndView.setViewName("pages/login/dashboard");
             return modelAndView;
         }
@@ -128,23 +126,22 @@ public class LoginController {
         List<Agreement> agreement = agreementService.findByQuery(agreementCriteria);
         String balance="0";
         String balanceLeft="0";
-        String liabilities="0";
+        String month="0";
         if(CollectionUtils.isNotEmpty(agreement)) {
             wrapper.addAll(new ArrayList<Invoice>(invoiceService.findByAgreementId(agreement.get(0).getId())));
             balance = agreement.get(0).getCurrentBalance().toString();
             balanceLeft = agreement.get(0).getCurrentBalanceLeft().toString();
-            liabilities = agreement.get(0).getLiabilities().toString();
+            month = String.valueOf(agreement.get(0).getMonthLeft());
+
             value.add(new String[]{"Remaining", agreement.get(0).getCurrentBalanceLeft().toString()});
             map = new HashMap<Object,Object>(); map.put("name", "Wartość"); map.put("y", balance);dataPoints1.add(map);
             map = new HashMap<Object,Object>(); map.put("name", "Wpłacono"); map.put("y", balanceLeft);dataPoints1.add(map);
             list.add(dataPoints1);
         }
-        //modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.addObject("invoiceList", wrapper);
         modelAndView.addObject("balance", balance);
         modelAndView.addObject("balanceLeft", balanceLeft);
-        modelAndView.addObject("liabilities", liabilities);
+        modelAndView.addObject("month", month);
         ModelMap modelMap = modelAndView.getModelMap();
         modelMap.addAttribute("dataPointsList", list);
         modelAndView.setViewName("pages/login/start");

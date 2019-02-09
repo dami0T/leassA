@@ -74,7 +74,7 @@ public class PaymentServiceImpl implements PaymentService {
             if (invoice.getPaidValue() != null) {
                 invoice.setPaidValue(invoice.getPaidValue().add(toPass));
             }
-            payment.setAmount(new BigDecimal(BigInteger.ZERO));
+            payment.setPassAmount(toPass);
             invoiceService.save(invoice);
             agreement.setCurrentBalance(agreement.getCurrentBalance().subtract(toPass));
             agreement.setCurrentBalanceLeft(agreement.getCurrentBalanceLeft().add(toPass));

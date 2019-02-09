@@ -27,6 +27,7 @@
     <script type="text/javascript">
     var balance = [[${balance}]];
     var balanceLeft = [[${balanceLeft}]];
+    var month = [[${month}]];
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
@@ -37,10 +38,10 @@
     ['Wartość wpłat', balanceLeft]
     ]);
 
-    var options = {'title':'My Average Day',
+    var options = {'title':'Pozostało ' + month + ' rat',
     pieHole: 0.3,
     legend: {position: 'bottom', textStyle: {color: '#d6d6d6', fontSize: 16}},
-    slices: {0: {color: '#ff8a25'}, 1:{color: '#d6d6d6'}}
+    slices: {0: {color: '#ff8a25'}, 1:{color: '#62f7de'}}
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('chart-container'));

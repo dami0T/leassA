@@ -98,7 +98,7 @@ public class PaymentController {
             }
         }
             paymentService.passPayment(payment, invoiceIds);
-            modelAndView.addObject("successMessage", "Agreement save");
+            modelAndView.addObject("successMessage", "Poprawnie zaksięgowano wpłatę");
             modelAndView.addObject("visible", visible);
             modelAndView.setViewName("/pages/payment/passPaymentPage");
             modelAndView.addObject("payment", payment);

@@ -34,6 +34,8 @@ public class Payment {
     @Basic
     private BigDecimal amount;
 
+    private BigDecimal passAmount;
+
     private BigDecimal vatValue;
 
     @ManyToOne
@@ -124,5 +126,13 @@ public class Payment {
 
     public void setOperationBalance(BigDecimal operationBalance) {
         this.operationBalance = operationBalance;
+    }
+
+    public BigDecimal getPassAmount() {
+        return passAmount;
+    }
+
+    public void setPassAmount(BigDecimal passAmount) {
+        this.passAmount = passAmount;
     }
 }
