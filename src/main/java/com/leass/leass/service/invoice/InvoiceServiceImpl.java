@@ -97,7 +97,7 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public void generateFirstInvoice(AgreementDto agreement) throws IOException {
-        String postName = "/home/damian/Pulpit/";
+        String postName = "/target/documents/";
         String fileName = "";
         BigDecimal amount = agreement.getAmountOfInstallments();
         BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
