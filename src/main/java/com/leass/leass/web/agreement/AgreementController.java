@@ -55,7 +55,7 @@ public class AgreementController {
         wrapper.addAll(new ArrayList<Agreement>(agreementService.findAll()));
         model.addObject("visible", visible);
         model.addObject("agreementList", wrapper);
-        model.setViewName("/pages/agreement/agreementListPage");
+        model.setViewName("pages/agreement/agreementListPage");
         return model;
     }
 
@@ -66,7 +66,7 @@ public class AgreementController {
         AgreementDto agreementDto = agreementService.getAgreementById(id.longValue());
         model.addObject("agreement", agreementDto);
         model.addObject("visible", visible);
-        model.setViewName("/pages/agreement/agreementViewPage");
+        model.setViewName("pages/agreement/agreementViewPage");
         return model;
     }
 
@@ -81,7 +81,7 @@ public class AgreementController {
         model.addAttribute("agreement", agreementDto);
         model.addAttribute("allClients", wrapper);
         model.addAttribute("visible", visible);
-        return "/pages/agreement/agreementEditPage";
+        return "pages/agreement/agreementEditPage";
 
     }
 
@@ -99,7 +99,7 @@ public class AgreementController {
             agreementService.saveDto(agreement);
             modelAndView.addObject("successMessage", "Agreement save");
             modelAndView.addObject("agreement", agreement);
-            modelAndView.setViewName("/pages/agreement/agreementViewPage");
+            modelAndView.setViewName("pages/agreement/agreementViewPage");
         }
         return modelAndView;
     }
@@ -116,7 +116,7 @@ public class AgreementController {
         modelAndView.addObject("agreement", agreement);
         model.addAttribute("allClients", wrapper);
         model.addAttribute("allProducts", products);
-        modelAndView.setViewName("/pages/agreement/addAgreementPage");
+        modelAndView.setViewName("pages/agreement/addAgreementPage");
         return modelAndView;
     }
 
@@ -133,7 +133,7 @@ public class AgreementController {
             invoiceService.generateFirstInvoice(agreement1);
             modelAndView.addObject("agreement", agreement1);
             modelAndView.addObject("successMessage", "Umowa zapisana wygenerowano pierwszą fakturę");
-            modelAndView.setViewName("/pages/agreement/agreementViewPage");
+            modelAndView.setViewName("pages/agreement/agreementViewPage");
         }
         return modelAndView;
     }

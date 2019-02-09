@@ -48,7 +48,7 @@ public class PaymentController {
         visible = userService.adminRole();
         model.addObject("visible", visible);
         model.addObject("paymentList", wrapper);
-        model.setViewName("/pages/payment/paymentListPage");
+        model.setViewName("pages/payment/paymentListPage");
         return model;
     }
 
@@ -62,7 +62,7 @@ public class PaymentController {
         modelAndView.addObject("payment", payment);
         model.addAttribute("allAgreement", wrapper);
         model.addAttribute("visible", visible);
-        modelAndView.setViewName("/pages/payment/addPaymentPage");
+        modelAndView.setViewName("pages/payment/addPaymentPage");
         return modelAndView;
     }
 
@@ -73,13 +73,13 @@ public class PaymentController {
 
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
-            modelAndView.setViewName("/pages/payment/addPaymentPage");
+            modelAndView.setViewName("pages/payment/addPaymentPage");
         } else {
 
             paymentService.save(payment);
             modelAndView.addObject("successMessage", "Wpłata zapisana");
             modelAndView.addObject("visible", visible);
-            modelAndView.setViewName("/pages/payment/addPaymentPage");
+            modelAndView.setViewName("pages/payment/addPaymentPage");
         }
         return modelAndView;
     }
@@ -118,7 +118,7 @@ public class PaymentController {
         model.addAttribute("invoiceList", wrapper);
         model.addAttribute("payment", payment);
         model.addAttribute("visible", visible);
-        return "/pages/payment/passPaymentPage";
+        return "pages/payment/passPaymentPage";
 
     }
 }

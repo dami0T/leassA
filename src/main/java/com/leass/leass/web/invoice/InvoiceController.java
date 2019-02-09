@@ -44,7 +44,7 @@ public class InvoiceController {
         wrapper.addAll(new ArrayList<Invoice>(invoiceService.findAll()));
         model.addObject("invoiceList", wrapper);
         model.addObject("visible", visible);
-        model.setViewName("/pages/invoice/invoiceListPage");
+        model.setViewName("pages/invoice/invoiceListPage");
         return model;
     }
 
