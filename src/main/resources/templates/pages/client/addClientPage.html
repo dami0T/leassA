@@ -222,8 +222,8 @@
                                 <div class="form-group">
                                     <div class="col-sm-9">
                                         <button type="submit" class="btn btn-primary btn-add">Zapisz</button>
-                                        <div>
-                                            <span class="red-text" th:utext="${errorMessage}"></span>
+                                        <div class="validate" th:each="error : ${errors}">
+                                                <tr class="red" th:text="${error}"></tr>
                                         </div>
                                     </div>
                                 </div>

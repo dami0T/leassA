@@ -44,7 +44,7 @@ public class ExporterServiceImpl implements ExporterService {
 
     @Override
     public void createDirectory(String clientId) throws IOException {
-        String path = "/target/documents/";
+        String path = "/home/damian/pulpit/";
         String pathName = path + clientId;
         File directory = new File(String.valueOf(pathName));
 

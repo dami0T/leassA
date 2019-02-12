@@ -7,9 +7,11 @@ import com.leass.leass.model.User;
 import com.leass.leass.service.UserService;
 import com.leass.leass.service.agreement.AgreementDto;
 import com.leass.leass.service.agreement.AgreementService;
+import com.leass.leass.service.agreement.AgreementValidator;
 import com.leass.leass.service.client.ClientService;
 import com.leass.leass.service.invoice.InvoiceService;
 import com.leass.leass.service.product.ProductService;
+import org.hibernate.validator.constraints.ISBN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,6 +26,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class AgreementController {
@@ -42,6 +45,9 @@ public class AgreementController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    AgreementValidator agreementValidator;
 
     ArrayList wrapper;
     ArrayList products;
@@ -125,9 +131,10 @@ public class AgreementController {
     public ModelAndView addAgreement(@ModelAttribute AgreementDto agreement, BindingResult result) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         visible =  userService.adminRole();
-        if (result.hasErrors() || agreement.getAmountOfInstallments() == null) {
+        List<String> errors = agreementValidator.validate(agreement);
+        if (result.hasErrors() || !errors.isEmpty()) {
             System.out.println(result.getAllErrors());
-            modelAndView.addObject("errorMessage", "Niepoprawnie uzupełnione dane");
+            modelAndView.addObject("errors", errors);
             modelAndView.addObject("agreement", agreement);
             modelAndView.setViewName("pages/agreement/addAgreementPage");
         } else {

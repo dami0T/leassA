@@ -160,8 +160,8 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-agreement">Zapisz</button>
-                                <div>
-                                    <span class="red-text" th:utext="${errorMessage}"></span>
+                                <div class="validate" th:each="error : ${errors}">
+                                    <tr class="red" th:text="${error}"></tr>
                                 </div>
                             </form>
                         </div>

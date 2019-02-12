@@ -42,9 +42,9 @@ public class AgreementDto {
 
     private BigDecimal amountOfInstallments;
 
-    private int month;
+    private Integer month;
 
-    private int monthLeft;
+    private Integer monthLeft;
 
     private byte[] content;
 
@@ -168,14 +168,6 @@ public class AgreementDto {
         this.amountOfInstallments = amountOfInstallments;
     }
 
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
     public byte[] getContent() {
         return content;
     }
@@ -184,11 +176,19 @@ public class AgreementDto {
         this.content = content;
     }
 
-    public int getMonthLeft() {
+    public Integer getMonth() {
+        return month;
+    }
+
+    public void setMonth(Integer month) {
+        this.month = month;
+    }
+
+    public Integer getMonthLeft() {
         return monthLeft;
     }
 
-    public void setMonthLeft(int monthLeft) {
+    public void setMonthLeft(Integer monthLeft) {
         this.monthLeft = monthLeft;
     }
 }

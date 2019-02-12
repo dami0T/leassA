@@ -123,6 +123,7 @@
             <column name="invoice_id" type="bigint"/>
             <column name="sender_account_number" type="varchar(255)"/>
             <column name="operation_balance" type="numeric(19,2)"/>
+            <column name="pass_amount" type="numeric(19,2)"/>
         </createTable>
         <addPrimaryKey tableName="payment" columnNames="id"/>
     </changeSet>

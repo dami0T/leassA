@@ -110,3 +110,13 @@ background-color: green;
     color: #86f3c2;
 }
 
+.validate {
+    color: red;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    width: 42%;
+    border-style: solid;
+    border-color: red;
+    text-align: center;
+}

@@ -6,6 +6,7 @@ import com.leass.leass.service.ExporterService;
 import com.leass.leass.service.UserService;
 import com.leass.leass.service.client.ClientDto;
 import com.leass.leass.service.client.ClientService;
+import com.leass.leass.service.client.ClientValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class ClientController {
@@ -31,6 +33,9 @@ public class ClientController {
 
     @Autowired
     ExporterService exporterService;
+
+    @Autowired
+    ClientValidator clientValidator;
 
 
     ArrayList wrapper ;
@@ -105,10 +110,12 @@ public class ClientController {
     public ModelAndView addClient(@ModelAttribute Client client, BindingResult result) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         visible =  userService.adminRole();
-        if (result.hasErrors() || client.getName() == null || client.getShortName() == null) {
+        List<String> errors = clientValidator.validate(client);
+        if (result.hasErrors() || !errors.isEmpty()) {
             System.out.println(result.getAllErrors());
             modelAndView.addObject("errorMessage", "Niepoprawnie uzupełnione dane");
             modelAndView.addObject("client", client);
+            modelAndView.addObject("errors", errors);
             modelAndView.setViewName("pages/client/addClientPage");
         } else {
             client.setCreateDate(new Date());
