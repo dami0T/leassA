@@ -22,7 +22,7 @@ public class ClientValidatorImpl implements ClientValidator{
             errors.add("Wprowadź imię klienta");
         }
         if (client.getSurname().isEmpty()){
-            errors.add("Wprowadź nazwisko klienta");
+            errors.add("Wprowadź nazwisko klienta ");
         }
         if (client.getPesel().isEmpty()){
             errors.add("Wprowadź pesel klienta");
