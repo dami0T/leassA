@@ -31,7 +31,7 @@ public class ClientValidatorImpl implements ClientValidator{
             errors.add("Nie podano adresu e-mail");
         }
         if (client.getPost().isEmpty() || client.getPostCode().isEmpty() || client.getStreet().isEmpty()){
-            errors.add("Wprowadź dane zamieszkania");
+            errors.add("Wprowadź dane zamieszkania ");
         }
         return errors;
     }
