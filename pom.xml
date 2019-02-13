@@ -126,12 +126,6 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.github.microon</groupId>
-            <artifactId>microon-services-validator</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>
-
     </dependencies>
 
     <build>
