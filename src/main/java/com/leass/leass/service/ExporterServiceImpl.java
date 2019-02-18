@@ -12,6 +12,8 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTHMerge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.activation.MimetypesFileTypeMap;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.math.BigInteger;
 import java.util.Date;
@@ -21,8 +23,10 @@ public class ExporterServiceImpl implements ExporterService {
 
     @Autowired
     ClientRepository clientRepository;
+
+
     @Override
-    public void write(String fileName, Invoice invoice) throws IOException {
+    public void write(String fileName, Invoice invoice, HttpServletResponse response) throws IOException {
 
         XWPFDocument document = new XWPFDocument();
         XWPFParagraph tmpParagraph = document.createParagraph();
@@ -53,6 +57,73 @@ public class ExporterServiceImpl implements ExporterService {
             directory.mkdir();
         }
 
+    }
+
+    @Override
+    public void downloadAttachment(Invoice invoice, HttpServletResponse response) {
+        try {
+
+            String fileName = "invoice.docx";
+            XWPFDocument document = new XWPFDocument();
+            XWPFParagraph tmpParagraph = document.createParagraph();
+            XWPFRun tmpRun = tmpParagraph.createRun();
+            tmpRun = generateInvoiceString(invoice, tmpRun);
+            tmpRun.setFontSize(12);
+            XWPFTable table = generateInvoiceTable(invoice, document);
+            XWPFTable table1 = generateInvoiceTable2(invoice, document);
+            XWPFRun tmpRun2 = tmpParagraph.createRun();
+            tmpRun = generateInvoice(invoice, tmpRun2);
+            tmpRun.setFontSize(12);
+            XWPFRun tmpRun3 = tmpParagraph.createRun();
+            tmpRun3 = generateDate(tmpRun3);
+            tmpRun3.setFontSize(12);
+
+            FileOutputStream fileOut = new FileOutputStream(fileName);
+            document.write(fileOut);
+            fileOut.close();
+            System.out.println("Your excel file has been generated!");
+
+            //Code to download
+            File fileToDownload = new File(fileName);
+            InputStream in = new FileInputStream(fileToDownload);
+
+            // Gets MIME type of the file
+            String mimeType = new MimetypesFileTypeMap().getContentType(fileName);
+
+            if (mimeType == null) {
+                // Set to binary type if MIME mapping not found
+                mimeType = "application/octet-stream";
+            }
+            System.out.println("MIME type: " + mimeType);
+
+            // Modifies response
+            response.setContentType(mimeType);
+            response.setContentLength((int) fileToDownload.length());
+
+            // Forces download
+            String headerKey = "Content-Disposition";
+            String headerValue = String.format("attachment; filename=\"%s\"", fileToDownload.getName());
+            response.setHeader(headerKey, headerValue);
+
+            // obtains response's output stream
+            OutputStream outStream = response.getOutputStream();
+
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+
+            while ((bytesRead = in.read(buffer)) != -1) {
+                outStream.write(buffer, 0, bytesRead);
+            }
+
+            in.close();
+            outStream.close();
+
+            System.out.println("File downloaded at client successfully");
+
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
     public XWPFRun generateInvoiceString(Invoice invoice,XWPFRun tmpRun){

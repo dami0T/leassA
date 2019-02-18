@@ -1,6 +1,7 @@
 package com.leass.leass.web.invoice;
 
 import com.leass.leass.model.Invoice;
+import com.leass.leass.service.ExporterService;
 import com.leass.leass.service.UserService;
 import com.leass.leass.service.invoice.InvoiceService;
 import org.apache.poi.util.IOUtils;
@@ -17,10 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 
 @Controller
@@ -31,6 +30,9 @@ public class InvoiceController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ExporterService exporterService;
 
     ArrayList wrapper ;
     Boolean visible;
@@ -54,18 +56,21 @@ public class InvoiceController {
 
         Invoice invoice = invoiceService.getOne(id);
 
-        try {
-            String filePathToBeServed = invoice.getFileUrl();
-            File fileToDownload = new File(filePathToBeServed);
-            InputStream inputStream = new FileInputStream(fileToDownload);
-            response.setContentType("application/force-download");
-            response.setHeader("Content-Disposition", "attachment; filename="+invoice.getFileUrl());
-            IOUtils.copy(inputStream, response.getOutputStream());
-            response.flushBuffer();
-            inputStream.close();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        exporterService.downloadAttachment(invoice, response);
+
+//
+//        try {
+//            String filePathToBeServed = invoice.getFileUrl();
+//            File fileToDownload = new File(filePathToBeServed);
+//            InputStream inputStream = new FileInputStream(fileToDownload);
+//            response.setContentType("application/force-download");
+//            response.setHeader("Content-Disposition", "attachment; filename="+invoice.getFileUrl());
+//            IOUtils.copy(inputStream, response.getOutputStream());
+//            response.flushBuffer();
+//            inputStream.close();
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 
 }

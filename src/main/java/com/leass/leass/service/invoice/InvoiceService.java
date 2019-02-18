@@ -24,4 +24,5 @@ public interface InvoiceService {
     String generateInvoiceNumber(String type, String month, String year);
 
     void generateFirstInvoice(AgreementDto agreement) throws IOException;
+
 }

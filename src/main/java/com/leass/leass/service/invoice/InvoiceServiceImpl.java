@@ -97,7 +97,7 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public void generateFirstInvoice(AgreementDto agreement) throws IOException {
-        String postName = "/target/documents/";
+        //String postName = "/target/documents/";
         String fileName = "";
         BigDecimal amount = agreement.getAmountOfInstallments();
         BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
@@ -113,12 +113,13 @@ public class InvoiceServiceImpl implements InvoiceService{
         invoice.setNetValue(netValue);
         invoice.setPaidValue(new BigDecimal("0.00"));
         invoice.setAgreement(agreementService.getOne(agreement.getId()));
-        fileName = postName+ invoice.getAgreement().getClient().getId() +"/"+ "Fa-Vat_"+ invoice.getIdentifier() +".docx";
+        fileName =  "Fa-Vat_"+ invoice.getIdentifier() +".docx";
         invoice.setFileUrl(fileName);
         save(invoice);
 
-        exporterService.write(fileName,invoice);
+        exporterService.write(fileName,invoice, null);
     }
+
 
     public String nextInvoiceNumber(String type, String month, String year) {
         String invNumb = generateInvoiceNumber(type, month, year);
