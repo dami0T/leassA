@@ -75,7 +75,7 @@ public class LoginController {
                             "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("/pages/login/registration");
+            modelAndView.setViewName("pages/login/registration");
         } else {
             role = UserTypeEnum.EMPLOYE.getValue();
             userService.save(user, role);
