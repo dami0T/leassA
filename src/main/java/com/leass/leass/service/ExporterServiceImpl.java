@@ -63,7 +63,7 @@ public class ExporterServiceImpl implements ExporterService {
     public void downloadAttachment(Invoice invoice, HttpServletResponse response) {
         try {
 
-            String fileName = "invoice.docx";
+            String fileName = invoice.getIdentifier() + ".docx";
             XWPFDocument document = new XWPFDocument();
             XWPFParagraph tmpParagraph = document.createParagraph();
             XWPFRun tmpRun = tmpParagraph.createRun();

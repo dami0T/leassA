@@ -117,6 +117,7 @@
                                 <th>Numer umowy</th>
                                 <th>Data utworzenia</th>
                                 <th>Wartość</th>
+                                <th>Zaksięgowano</th>
                                 <th>Zaksięguj</th>
                             </tr>
                             </thead>
@@ -125,6 +126,7 @@
                                 <td th:class="${payment.amount le payment.passAmount} ? 'blue' : green" th:text="${payment.agreement.agreementNumber}"></td>
                                 <td th:text="${payment.dateOfPayment}"></td>
                                 <td th:text="${payment.amount}"></td>
+                                <td th:text="${payment.passAmount}"></td>
                                 <td><a th:href="${'/passPayment/' + payment.id}">Zaksięguj</a> </td>
                             </tr>
                             </tbody>

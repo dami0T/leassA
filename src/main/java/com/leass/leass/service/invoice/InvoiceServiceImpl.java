@@ -64,7 +64,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     public List<Invoice> findByAgreementId(Long agreementId) {
         InvoiceCriteria invoiceCriteria = new InvoiceCriteria();
         invoiceCriteria.setAgreementId(agreementId);
-        invoiceCriteria.setPaid(true);
+        invoiceCriteria.setPaid(false);
         List<Invoice> invoices = invoiceRepository.findAll(invoiceSpecification.invoiceByQuery(invoiceCriteria));
         return invoices;
     }
@@ -99,7 +99,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     public void generateFirstInvoice(AgreementDto agreement) throws IOException {
         //String postName = "/target/documents/";
         String fileName = "";
-        BigDecimal amount = agreement.getAmountOfInstallments();
+        BigDecimal amount = agreement.getAmountOfInstallments().multiply(new BigDecimal(2));
         BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
         BigDecimal netValue = amount.subtract(vatValue);
         DateTime date = new DateTime();

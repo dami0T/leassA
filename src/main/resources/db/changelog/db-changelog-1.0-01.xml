@@ -140,11 +140,11 @@
     <changeSet id="user admin" author="dt">
         <insert tableName="sys_user">
             <column name="id" valueComputed="nextval('hibernate_sequence')"/>
-            <column name="email" value="admin"/>
+            <column name="email" value="admin@wp.pl"/>
             <column name="name" value="admin"/>
             <column name="active" value="1"/>
             <column name="last_name" value="admin"/>
-            <column name="password" value="$2a$10$7VXqHp.B1OnNcwbGJJzO9ebVFjLjHDA9NsCynm.jCdjrYEMV2V0xq"/>
+            <column name="password" value="$2a$10$lU6CpWrl5OYVMtsUOFVgWO1iqKdyaIPSdBhjGGG6PRTTZNIc5HM86"/>
         </insert>
     </changeSet>
     <changeSet id="roles user" author="dt">
