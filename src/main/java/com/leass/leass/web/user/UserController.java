@@ -45,7 +45,7 @@ public class UserController {
         wrapper = new ArrayList<>();
         wrapper.addAll(new ArrayList<User>(userService.findAll()));
         model.addObject("userList", wrapper);
-        model.setViewName("/pages/user/userListPage");
+        model.setViewName("pages/user/userListPage");
         return model;
     }
 
@@ -60,7 +60,7 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("roles", wrapper);
 
-        return "/pages/user/userEditPage";
+        return "pages/user/userEditPage";
 
     }
 
@@ -77,7 +77,7 @@ public class UserController {
             userService.save(user);
             modelAndView.addObject("successMessage", "Zapisano zmiany");
             modelAndView.addObject("user", user);
-            modelAndView.setViewName("/pages/user/userViewPage");
+            modelAndView.setViewName("pages/user/userViewPage");
         }
         return modelAndView;
     }
@@ -92,7 +92,7 @@ public class UserController {
         model.addAttribute("password", password);
         model.addAttribute("newPassword", newPassword);
 
-        return "/pages/user/changePasswordPage";
+        return "pages/user/changePasswordPage";
     }
 
     @RequestMapping(value = "/changePasswordUser", method = RequestMethod.POST)
@@ -106,13 +106,13 @@ public class UserController {
                 userService.save(user);
                 modelAndView.addObject("successMessage", "Zapisano zmiany");
                 modelAndView.addObject("user", user);
-                modelAndView.setViewName("/pages/user/userViewPage");
+                modelAndView.setViewName("pages/user/userViewPage");
             }
         } else {
             result.addError(new ObjectError(newPassword, "Blablabla"));
             System.out.println(result.getAllErrors());
             modelAndView.addObject("user", user);
-            modelAndView.setViewName("/pages/user/changePasswordPage");
+            modelAndView.setViewName("pages/user/changePasswordPage");
         }
         return modelAndView;
     }
