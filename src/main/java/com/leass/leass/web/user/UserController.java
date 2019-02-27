@@ -8,6 +8,8 @@ import com.leass.leass.repository.RoleRepository;
 import com.leass.leass.repository.UserRepository;
 import com.leass.leass.service.UserService;
 import com.leass.leass.service.agreement.AgreementDto;
+import com.leass.leass.service.client.PasswordValidator;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,9 @@ public class UserController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    PasswordValidator passwordValidator;
 
     ArrayList wrapper;
 
@@ -86,32 +91,26 @@ public class UserController {
     public String changePassword(ModelMap model) {
 
         user = userService.getRequiredLoggedUser();
-        String password = "";
-        String newPassword = "";
         model.addAttribute("user", user);
-        model.addAttribute("password", password);
-        model.addAttribute("newPassword", newPassword);
 
         return "pages/user/changePasswordPage";
     }
 
     @RequestMapping(value = "/changePasswordUser", method = RequestMethod.POST)
-    public ModelAndView changePassword(@ModelAttribute("password") String password, @ModelAttribute("newPassword") String newPassword, BindingResult result) {
+    public ModelAndView changePassword(@ModelAttribute User user, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
 
+        List<String> errors = passwordValidator.validate(user);
 
-        if (StringUtils.isNotEmpty(password) && StringUtils.isNotEmpty(newPassword)) {
-            if (password.equals(newPassword)) {
-                user.setPassword(password);
+        if (CollectionUtils.isEmpty(errors)) {
                 userService.save(user);
                 modelAndView.addObject("successMessage", "Zapisano zmiany");
                 modelAndView.addObject("user", user);
                 modelAndView.setViewName("pages/user/userViewPage");
-            }
         } else {
-            result.addError(new ObjectError(newPassword, "Blablabla"));
             System.out.println(result.getAllErrors());
             modelAndView.addObject("user", user);
+            modelAndView.addObject("errors", errors);
             modelAndView.setViewName("pages/user/changePasswordPage");
         }
         return modelAndView;

@@ -28,6 +28,13 @@ public class User {
     @NotEmpty(message = "*Please provide your password")
     private String password;
 
+    @Column(name = "newpassword")
+    private String newPassword;
+
+    @Column(name = "repassword")
+    private String repassword;
+
+
     @Column(name = "name")
     @NotEmpty(message = "*Please provide your name")
     private String name;
@@ -121,6 +128,22 @@ public class User {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getRepassword() {
+        return repassword;
+    }
+
+    public void setRepassword(String repassword) {
+        this.repassword = repassword;
     }
 }
 
