@@ -22,8 +22,6 @@
             <column name="name" type="varchar(255)"/>
             <column name="last_name" type="varchar(255)"/>
             <column name="password" type="varchar(255)"/>
-            <column name="newpassword" type="varchar(255)"/>
-            <column name="repassword" type="varchar(255)"/>
             <column name="type" type="varchar(20)"/>
             <column name="client_id" type="bigint"/>
             <column name="active" type="int"/>
@@ -158,5 +156,11 @@
     <changeSet author="sequence" id="createSequence-example">
         <createSequence sequenceName="inv_seq"
                         startValue="100"/>
+    </changeSet>
+    <changeSet id="password" author="dt">
+        <addColumn tableName="sys_user">
+            <column name="newpassword" type="varchar(255)"/>
+            <column name="repassword" type="varchar(255)"/>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>
