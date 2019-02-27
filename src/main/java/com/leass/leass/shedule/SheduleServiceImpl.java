@@ -40,9 +40,10 @@ public class SheduleServiceImpl implements SheduleService{
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    @Scheduled(cron = "0 10 14 * * *")
+    @Scheduled(cron = "5 * * * * *")
     public void createInvoiceMonth() throws IOException {
 
+        logger.error("Sheduler działa");
         Date currentDate = new Date();
         List<Agreement> agreements = agreementService.findAll();
         DateTime date = new DateTime();
