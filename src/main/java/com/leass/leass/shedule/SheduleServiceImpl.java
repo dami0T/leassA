@@ -50,6 +50,7 @@ public class SheduleServiceImpl implements SheduleService{
         String postName = "target/documents/";
         String fileName = "";
         for (Agreement agreement : agreements) {
+            logger.error(agreements.size() + " ");
             if (plusDays(agreement.getLastCreateInvoiceDate() == null ? agreement.getCreateDate() : agreement.getLastCreateInvoiceDate() , 1).after(currentDate)
                     && agreement.getMonthLeft() > 0) {
                 BigDecimal amount = agreement.getAmountOfInstallments();
