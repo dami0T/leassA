@@ -40,7 +40,7 @@ public class SheduleServiceImpl implements SheduleService{
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    @Scheduled(cron = "0 30 13 * * *")
+    @Scheduled(cron = "0 10 14 * * *")
     public void createInvoiceMonth() throws IOException {
 
         Date currentDate = new Date();
