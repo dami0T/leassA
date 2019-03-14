@@ -12,6 +12,7 @@ import com.leass.leass.service.client.PasswordValidator;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -38,6 +39,9 @@ public class UserController {
 
     @Autowired
     PasswordValidator passwordValidator;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     ArrayList wrapper;
 
@@ -103,6 +107,8 @@ public class UserController {
         List<String> errors = passwordValidator.validate(user);
 
         if (CollectionUtils.isEmpty(errors)) {
+            String password = bCryptPasswordEncoder.encode(user.getNewPassword());
+            user.setPassword(password);
                 userService.save(user);
                 modelAndView.addObject("successMessage", "Zapisano zmiany");
                 modelAndView.addObject("user", user);

@@ -43,6 +43,11 @@
 
         <ul class="nav navbar-top-links navbar-right">
             <li>
+                <a href="/changePassword" th:href="@{/changePassword}" onclick="$('#form').submit();">
+                    <i class="fa fa-user fa-fw"></i>
+                </a>
+            </li>
+            <li>
                 <a class="logout" href="/login" th:href="@{/login}" onclick="$('#form').submit();">
                     <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Wyloguj
                 </a>
