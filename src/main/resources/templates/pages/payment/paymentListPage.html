@@ -29,7 +29,6 @@
 <body>
 
 <div id="wrapper">
-
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -40,10 +39,12 @@
             </button>
             <a class="navbar-brand" href="index.html"><img class="logo" th:src="@{/css/assets/logo.png}"/></a>
         </div>
-
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <a href="/registration" th:href="@{/registration}" onclick="$('#form').submit();">
+                <a th:if="${visible}" href="/registration" th:href="@{/registration}" onclick="$('#form').submit();">
+                    <i class="fa fa-user fa-fw"></i>
+                </a>
+                <a th:if="${!visible}" href="/changePassword" th:href="@{/changePassword}" onclick="$('#form').submit();">
                     <i class="fa fa-user fa-fw"></i>
                 </a>
             </li>
@@ -80,6 +81,7 @@
             </div>
         </div>
     </nav>
+
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">

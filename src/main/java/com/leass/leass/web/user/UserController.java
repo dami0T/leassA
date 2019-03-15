@@ -44,22 +44,27 @@ public class UserController {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     ArrayList wrapper;
+    Boolean visible;
+
 
     User user = new User();
 
 
     @RequestMapping(value = "/listuser", method = RequestMethod.GET)
     public ModelAndView userListPage() {
+        visible =  userService.adminRole();
         ModelAndView model = new ModelAndView();
         wrapper = new ArrayList<>();
         wrapper.addAll(new ArrayList<User>(userService.findAll()));
         model.addObject("userList", wrapper);
+        model.addObject("visible", visible);
         model.setViewName("pages/user/userListPage");
         return model;
     }
 
     @RequestMapping(value = {"/userEdit", "/userEdit/{id}"}, method = RequestMethod.GET)
     public String editUser(@PathVariable(required = false, name = "id") Long id, ModelMap model) {
+        visible =  userService.adminRole();
         if (id != null) {
             user = userService.findById(id);
         }
@@ -67,6 +72,7 @@ public class UserController {
         wrapper = new ArrayList<>();
         wrapper.addAll(new ArrayList<Role>(roleRepository.findAll()));
         model.addAttribute("user", user);
+        model.addAttribute("visible", visible);
         model.addAttribute("roles", wrapper);
 
         return "pages/user/userEditPage";
@@ -76,16 +82,19 @@ public class UserController {
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     public ModelAndView saveAgreement(@ModelAttribute User user, @ModelAttribute("roles.role") String role, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
-
+        visible =  userService.adminRole();
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
             modelAndView.setViewName("agreementViewPage");
         } else {
             roleRepository.findByRole(role);
             user.setRoles(Arrays.asList(roleRepository.findByRole(role)));
+            String password = bCryptPasswordEncoder.encode(user.getPassword());
+            user.setPassword(password);
             userService.save(user);
             modelAndView.addObject("successMessage", "Zapisano zmiany");
             modelAndView.addObject("user", user);
+            modelAndView.addObject("visible", visible);
             modelAndView.setViewName("pages/user/userViewPage");
         }
         return modelAndView;
@@ -93,9 +102,10 @@ public class UserController {
 
     @RequestMapping(value = {"/changePassword"}, method = RequestMethod.GET)
     public String changePassword(ModelMap model) {
-
+        visible =  userService.adminRole();
         user = userService.getRequiredLoggedUser();
         model.addAttribute("user", user);
+        model.addAttribute("visible", visible);
 
         return "pages/user/changePasswordPage";
     }
@@ -103,7 +113,7 @@ public class UserController {
     @RequestMapping(value = "/changePasswordUser", method = RequestMethod.POST)
     public ModelAndView changePassword(@ModelAttribute User user, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
-
+        visible =  userService.adminRole();
         List<String> errors = passwordValidator.validate(user);
 
         if (CollectionUtils.isEmpty(errors)) {
@@ -112,11 +122,13 @@ public class UserController {
                 userService.save(user);
                 modelAndView.addObject("successMessage", "Zapisano zmiany");
                 modelAndView.addObject("user", user);
+            modelAndView.addObject("visible", visible);
                 modelAndView.setViewName("pages/user/userViewPage");
         } else {
             System.out.println(result.getAllErrors());
             modelAndView.addObject("user", user);
             modelAndView.addObject("errors", errors);
+            modelAndView.addObject("visible", visible);
             modelAndView.setViewName("pages/user/changePasswordPage");
         }
         return modelAndView;

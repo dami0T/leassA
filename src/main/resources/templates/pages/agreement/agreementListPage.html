@@ -41,7 +41,10 @@
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <a href="/registration" th:href="@{/registration}" onclick="$('#form').submit();">
+                <a th:if="${visible}" href="/registration" th:href="@{/registration}" onclick="$('#form').submit();">
+                    <i class="fa fa-user fa-fw"></i>
+                </a>
+                <a th:if="${!visible}" href="/changePassword" th:href="@{/changePassword}" onclick="$('#form').submit();">
                     <i class="fa fa-user fa-fw"></i>
                 </a>
             </li>
@@ -127,8 +130,8 @@
                                 <td th:text="${agreement.agreementNumber}"></td>
                                 <td th:text="${agreement.createDate}"></td>
                                 <td th:text="${agreement.client.shortName}"></td>
-                                <td><a th:href="${'/agreement/' + agreement.id}">View</a> </td>
-                                <td><a th:href="${'/agreementEdit/' + agreement.id}">Edit</a> </td>
+                                <td><a th:href="${'/agreement/' + agreement.id}">Podgląd</a> </td>
+                                <td><a th:href="${'/agreementEdit/' + agreement.id}">Edytuj</a> </td>
                             </tr>
                             </tbody>
                         </table>

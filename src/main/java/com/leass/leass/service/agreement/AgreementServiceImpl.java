@@ -49,6 +49,9 @@ public class AgreementServiceImpl implements AgreementService {
             agreementDto.setClientName(agreement.getClient().getShortName());
         }
         if (agreement.getProduct() != null) {
+            agreementDto.setProductName(agreement.getProduct().getDescription());
+        }
+        if (agreement.getProduct() != null) {
             agreementDto.setProductId(agreement.getProduct().getId());
         }
         if (agreement.getFirsInvoiceAmount() != null) {

@@ -30,6 +30,8 @@ public class AgreementDto {
 
     private String clientName;
 
+    private String productName;
+
     private BigDecimal liabilities;
 
     private BigDecimal CurrentBalance;
@@ -190,5 +192,13 @@ public class AgreementDto {
 
     public void setMonthLeft(Integer monthLeft) {
         this.monthLeft = monthLeft;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

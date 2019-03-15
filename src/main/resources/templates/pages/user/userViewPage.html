@@ -29,8 +29,6 @@
 <body>
 
 <div id="wrapper">
-
-    <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -41,36 +39,31 @@
             </button>
             <a class="navbar-brand" href="index.html"><img class="logo" th:src="@{/css/assets/logo.png}"/></a>
         </div>
-        <!-- /.navbar-header -->
-
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <a href="/registration" th:href="@{/registration}" onclick="$('#form').submit();">
+                <a th:if="${visible}" href="/registration" th:href="@{/registration}" onclick="$('#form').submit();">
+                    <i class="fa fa-user fa-fw"></i>
+                </a>
+                <a th:if="${!visible}" href="/changePassword" th:href="@{/changePassword}" onclick="$('#form').submit();">
                     <i class="fa fa-user fa-fw"></i>
                 </a>
             </li>
-            <!--/.dodanie użytkownika-->
-            <!--wylogowanie-->
             <li>
                 <a class="logout" href="/login" th:href="@{/login}" onclick="$('#form').submit();">
                     <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Wyloguj
                 </a>
             </li>
-            <!--/.wylogowanie-->
         </ul>
-        <!-- /.navbar-top-links -->
-
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
                         <a href="#" th:href="@{/home}">
-                            <i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <i class="fa fa-dashboard fa-fw"></i> Strona główna</a>
                     </li>
                     <li>
                         <a href="#" th:href="@{/listagreement}">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Umowy</a>
-                        <!-- /.nav-second-level -->
                     </li>
                     <li>
                         <a href="#" th:href="@{/listinvoice}">
@@ -80,10 +73,15 @@
                         <a href="#" th:href="@{/listpayment}">
                             <i class="fa fa-money fa-fw"></i> Wpłaty</a>
                     </li>
+                    <li th:if="${visible}">
+                        <a href="#" th:href="@{/listuser}">
+                            <i class="fa fa-user fa-fw"></i> Użytkownicy</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+
 
     <div id="page-wrapper">
         <div class="row">
