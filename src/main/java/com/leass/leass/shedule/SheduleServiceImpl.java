@@ -40,7 +40,7 @@ public class SheduleServiceImpl implements SheduleService{
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    @Scheduled(cron = "0 10 14 * * *")
+    @Scheduled(cron = "5 * * * * *")
     public void createInvoiceMonth() throws IOException {
 
         logger.error("GENEROWANIE FAKTUR");
@@ -51,8 +51,10 @@ public class SheduleServiceImpl implements SheduleService{
         String fileName = "";
 
         for (Agreement agreement : agreements) {
+            Date lastGenerateDate = minusDays(agreement.getLastCreateInvoiceDate() == null ? startOfDay(agreement.getCreateDate()) : startOfDay(agreement.getLastCreateInvoiceDate()) , 1);
+            Date dateNow = minusMonths(startOfDay(new Date()), 1);
             logger.error(currentDate + " sprawdzzanie dat " + agreement.getCreateDate());
-            if (plusDays(agreement.getLastCreateInvoiceDate() == null ? agreement.getCreateDate() : agreement.getLastCreateInvoiceDate() , 1).after(currentDate)
+            if (lastGenerateDate.after(dateNow)
                     && agreement.getMonthLeft() > 0) {
                 BigDecimal amount = agreement.getAmountOfInstallments();
                 BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
@@ -96,10 +98,10 @@ public class SheduleServiceImpl implements SheduleService{
         return sequenceName;
     }
 
-    public static Date plusDays(Date startDate, Integer numberOfDays) {
+    public static Date minusDays(Date startDate, Integer numberOfDays) {
         if (startDate == null) return null;
         DateTime date = new DateTime(startDate.getTime());
-        return date.plusDays(numberOfDays).toDate();
+        return date.minusDays(numberOfDays).toDate();
     }
 
     public static BigDecimal percentFromValue(BigDecimal percentage, BigDecimal amount, int scale) {
@@ -107,5 +109,25 @@ public class SheduleServiceImpl implements SheduleService{
             return null;
         }
         return amount.multiply(percentage).divide(new BigDecimal("100"), scale, BigDecimal.ROUND_HALF_UP);
+    }
+
+    public static Date startOfDay(Date date) {
+        if (date == null) {
+            return null;
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
+    public static Date minusMonths(Date startDate, Integer numberOfMonths) {
+        if (startDate == null) return null;
+        DateTime date = new DateTime(startDate.getTime());
+        return date.minusMonths(numberOfMonths).toDate();
     }
 }
