@@ -40,7 +40,7 @@ public class SheduleServiceImpl implements SheduleService{
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    @Scheduled(cron = "30 1 * * * *")
+    @Scheduled(cron = "30 0 5 * * *")
     public void createInvoiceMonth() throws IOException {
 
         logger.error("GENEROWANIE FAKTUR");
@@ -52,10 +52,10 @@ public class SheduleServiceImpl implements SheduleService{
         String fileName = "";
 
         for (Agreement agreement : agreements) {
-            Date lastGenerateDate = minusDays(agreement.getLastCreateInvoiceDate() == null ? startOfDay(agreement.getCreateDate()) : startOfDay(agreement.getLastCreateInvoiceDate()) , 1);
+            Date lastGenerateDate = startOfDay(agreement.getLastCreateInvoiceDate() == null ? startOfDay(agreement.getCreateDate()) : startOfDay(agreement.getLastCreateInvoiceDate()));
             Date dateNow = minusMonths(startOfDay(new Date()), 1);
             logger.error(currentDate + " sprawdzzanie dat " + agreement.getCreateDate());
-            if (lastGenerateDate.before(dateNow)
+            if (lastGenerateDate.equals(dateNow)
                     && agreement.getMonthLeft() > 0) {
                 logger.error("generowanie faktury");
 
@@ -63,7 +63,6 @@ public class SheduleServiceImpl implements SheduleService{
                 BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
                 BigDecimal netValue = amount.subtract(vatValue);
 
-                if (agreement.getCreateDate().after(currentDate)) {
 
                     Invoice invoice = new Invoice();
                     invoice.setCreateDate(startOfDay(new Date()));
@@ -87,8 +86,6 @@ public class SheduleServiceImpl implements SheduleService{
                     agreement.setMonthLeft(agreement.getMonthLeft() - 1);
                     logger.error("zapis umowy");
                     agreementService.save(agreement);
-                }
-
             }
             else {
                 logger.error("Nie znaleziono umów do wygenerowania faktury");
