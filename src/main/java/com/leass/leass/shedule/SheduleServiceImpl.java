@@ -40,7 +40,7 @@ public class SheduleServiceImpl implements SheduleService{
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    @Scheduled(cron = "5 * * * * *")
+    @Scheduled(cron = "0 0 5 * * *")
     public void createInvoiceMonth() throws IOException {
 
         logger.error("GENEROWANIE FAKTUR");
