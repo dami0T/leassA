@@ -40,10 +40,11 @@ public class SheduleServiceImpl implements SheduleService{
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    @Scheduled(cron = "0 10 14 * * *")
+    @Scheduled(cron = "30 * * * * *")
     public void createInvoiceMonth() throws IOException {
 
         logger.error("GENEROWANIE FAKTUR");
+
         Date currentDate = new Date();
         List<Agreement> agreements = agreementService.findAll();
         DateTime date = new DateTime();
@@ -56,13 +57,15 @@ public class SheduleServiceImpl implements SheduleService{
             logger.error(currentDate + " sprawdzzanie dat " + agreement.getCreateDate());
             if (lastGenerateDate.after(dateNow)
                     && agreement.getMonthLeft() > 0) {
+                logger.error("generowanie faktury");
+
                 BigDecimal amount = agreement.getAmountOfInstallments();
                 BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
                 BigDecimal netValue = amount.subtract(vatValue);
 
-                if (agreement.getCreateDate().after(currentDate)) {
+
                     Invoice invoice = new Invoice();
-                    invoice.setCreateDate(new Date());
+                    invoice.setCreateDate(startOfDay(new Date()));
                     invoice.setIdentifier(nextInvoiceNumber("S", date.getMonthOfYear() + "", date.getYear() + ""));
                     invoice.setGrossValue(amount);
                     invoice.setFinalGrossValue(amount);
@@ -83,7 +86,7 @@ public class SheduleServiceImpl implements SheduleService{
                     agreement.setMonthLeft(agreement.getMonthLeft() - 1);
                     logger.error("zapis umowy");
                     agreementService.save(agreement);
-                }
+
             }
             else {
                 logger.error("Nie znaleziono umów do wygenerowania faktury");
