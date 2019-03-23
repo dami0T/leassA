@@ -63,6 +63,7 @@ public class SheduleServiceImpl implements SheduleService{
                 BigDecimal vatValue = percentFromValue(new BigDecimal("23"), amount, 2);
                 BigDecimal netValue = amount.subtract(vatValue);
 
+                if (agreement.getCreateDate().after(currentDate)) {
 
                     Invoice invoice = new Invoice();
                     invoice.setCreateDate(startOfDay(new Date()));
@@ -86,6 +87,7 @@ public class SheduleServiceImpl implements SheduleService{
                     agreement.setMonthLeft(agreement.getMonthLeft() - 1);
                     logger.error("zapis umowy");
                     agreementService.save(agreement);
+                }
 
             }
             else {
