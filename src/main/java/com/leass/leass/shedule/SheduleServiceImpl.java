@@ -40,7 +40,7 @@ public class SheduleServiceImpl implements SheduleService{
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    @Scheduled(cron = "30 * * * * *")
+    @Scheduled(cron = "30 1 * * * *")
     public void createInvoiceMonth() throws IOException {
 
         logger.error("GENEROWANIE FAKTUR");
@@ -55,7 +55,7 @@ public class SheduleServiceImpl implements SheduleService{
             Date lastGenerateDate = minusDays(agreement.getLastCreateInvoiceDate() == null ? startOfDay(agreement.getCreateDate()) : startOfDay(agreement.getLastCreateInvoiceDate()) , 1);
             Date dateNow = minusMonths(startOfDay(new Date()), 1);
             logger.error(currentDate + " sprawdzzanie dat " + agreement.getCreateDate());
-            if (lastGenerateDate.after(dateNow)
+            if (lastGenerateDate.before(dateNow)
                     && agreement.getMonthLeft() > 0) {
                 logger.error("generowanie faktury");
 
